@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Far Lands Score Submission</title>
+  <!--- <link rel="stylesheet" href="registration/registration.css" /> --->
+  <link rel="stylesheet" href="./registration.css" />
+  <!-- firebase start ****************************************-->
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+  <!-- firebase end ******************************************-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"
+    integrity="sha512-bzpp8klYroR6PFgL3RJ+VkvY5hJna7Zd38OA56peUDHSNQpSiN9lDQVnMYtcw7hoAVhbR6mAOdH+ymzg1o+G0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.js"
+    integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+   
+</head>
+<body>
+ 
+  <div class="container">
+    <h1>Registration Form for <br> Guess The Number and FarLands</h1>
+    <h2>(Logging in with google is also a part of registration)</h2>
+
+    <button onclick="fb_start()">Login with Google</button>
+
+
+    <form id="RegistationForm">
+      <label for="name">UserName: less than 100 characters</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="age">Age 5-100:</label>
+      <input type="number" id="age" name="age" required />
+    </form>
+
+    
+
+    <button onclick="saveInfo();fb_updateInformationRegistrationFL();fb_updateInformationRegistrationCG();fb_updateInformationRegistrationAgeFL();redirectHub(); ">Submit</button>
+
+    <div id="emailOutput" style="margin-top: 2rem;"></div>
+
+    <p id="statusMessage">You must be logged in to proceed!</p>
+    <p id ="statusMessage2"></p>
+  </div>
+  
+ <!--MJS FILES-->
+  <script type="module" src="fb_io.mjs"></script>
+  <script type="module" src="../main.mjs"></script>
+  <script src="./registration.mjs"></script>
+
+
+</body>
+</html>

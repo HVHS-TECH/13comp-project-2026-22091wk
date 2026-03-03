@@ -1,47 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>The Project</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" type="text/css" href="./style.css">
 
-    <!-- firebase start ****************************************-->
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-    <!-- firebase end ******************************************-->
+<head>
+  <title>12COMP firebase</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- stylesheets *******************************************-->
+  <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" type="text/css" href="./style.css">
+
+  <!-- firebase start ****************************************-->
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+  <!-- firebase end ******************************************-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"
+    integrity="sha512-bzpp8klYroR6PFgL3RJ+VkvY5hJna7Zd38OA56peUDHSNQpSiN9lDQVnMYtcw7hoAVhbR6mAOdH+ymzg1o+G0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.js"
+    integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://p5play.org/v3/planck.min.js"></script>
+  <script src="https://p5play.org/v3/p5play.js"></script>
 </head>
 
+<body>
 
-<body onload="">
+  <header class="container">
+    <h1>12COMP Firebase Realtime Database</h1>
+  </header>
+
+
+
+
+  <section>
+    <div class="container">
+      <div class="column">
+        <a href="./registration/registration.html">
+          <button onclick>Register</button>
+        </a>
+      </div>
+      <div class="column">
+        <a href="coinGame.html">
+          <button onclick>Coin Game</button>
+        </a>
+      </div>
+      <div class="column">
+        <a href="FarLands.html">
+          <button onclick>Far Lands</button>
+        </a>
+      </div>
+      <div class="column">
+        <a href="leaderboard/leaderboard.html">
+          <button onclick>Leaderboard</button>
+        </a>
+      </div>
+    </div>
+  </section>
+  <script src="lobby.js"></script>
+  <script type="module" src="./main.mjs"></script>
   
-        <section>
-        <div class="container">
-            <div class="column">
-                <button onclick="fb_initialise()">initialise firebase</button>
-                
-                <button onclick="redirectRegistration()">register</button>
-                <p class="p_fbStatus">The username: <span id="readDataBaseName"> n/a</span></p>
-            </div>
-        </section>
-        
-    <input id="messageInput" placeholder="Type a message">
-    <button onclick="saveMessage()">Save Message</button>
-    <h3>Message Board</h3>
-    <button onclick="showMessages()">Show All Messages</button>
-    <div id="allMessages"></div>
-
-
-
-
-
-
-            
-    <script type="module" src="/main.mjs"></script>
-    <script type="module" src="/landingPage.mjs"></script>
-    <input type="text" id="dataInput" placeholder="What u want ur path to be?">
-    <input type="text" id="dataInput2" placeholder="secret info to store">
-    <button onclick="submitData()">Submit</button>
-
 </body>
-</html>
