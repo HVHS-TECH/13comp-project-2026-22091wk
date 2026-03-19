@@ -7,6 +7,7 @@ var leaderboard1;
 var newScoreValid;
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
+let userState
 
 /**************************************************************/
 // Importing all external constants & functions here
@@ -17,7 +18,7 @@ import { initializeApp }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst }
+import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, onValue }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 
@@ -346,6 +347,7 @@ function createLobby() {
 
     set(dbReference, { player2: "none", host: userUID }).then(() => {
         console.log("very successful");
+        createActiveGame();
 
     }).catch((error) => {
         console.log("error  " + error)
@@ -353,7 +355,7 @@ function createLobby() {
 
 };
 function joinLobby() {
-    const userUID = sessionStorage.getItem("UID");
+    userUID = sessionStorage.getItem("UID");
     console.log(userUID);
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/player2");
     update(dbReference, { player2: userUID, }).then(() => {
@@ -380,7 +382,24 @@ function joinLobby() {
 
 }
 function createActiveGame() {
-    const Host = sessionStorage.getItem("host");
-    const player2 = sessionStorage.getItem("player2");
-    console.log(Host);
+    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/player2");
+
+    onValue(dbReference, (snapshot) => {
+        var fb_data = snapshot.val();
+        if (fb_data != null) {
+            const Host = sessionStorage.getItem("host");
+            const player2 = sessionStorage.getItem("player2");
+            if (userUID == Host) {
+                userState = "firstPlayer"
+                console.log("you are the host")
+            } else {
+                userState = "secondPlayer"
+                console.log("you are the player 2")
+            }
+        } else {
+
+        }
+
+    });
+
 }
