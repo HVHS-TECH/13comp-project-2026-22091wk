@@ -391,7 +391,7 @@ function createActiveGame() {
             const player2 = sessionStorage.getItem("player2");
             if (userUID == Host) {
                 userState = "firstPlayer"
-                console.log("you are the host")
+                console.log("you are the host") 
             } else {
                 userState = "secondPlayer"
                 console.log("you are the player 2")
