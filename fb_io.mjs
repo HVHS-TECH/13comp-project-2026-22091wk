@@ -343,28 +343,37 @@ function createLobby() {
             console.log("Not signed in");
         }
     });
-    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/player2");
+    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
 
     set(dbReference, { player2: "none", host: userUID }).then(() => {
         console.log("very successful");
+        setHostnPlayer()
+        setTimeout(100)
         createActiveGame();
 
     }).catch((error) => {
         console.log("error  " + error)
     });
 
+    
+
 };
 function joinLobby() {
     userUID = sessionStorage.getItem("UID");
     console.log(userUID);
-    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/player2");
+    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
     update(dbReference, { player2: userUID, }).then(() => {
         console.log("very successful");
     }).catch((error) => {
         console.log("error  " + error)
     });
+    setHostnPlayer()
 
-    const dbReference2 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/player2");
+}
+
+
+function setHostnPlayer() {
+    const dbReference2 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
     get(dbReference2).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
@@ -373,33 +382,30 @@ function joinLobby() {
             sessionStorage.setItem("player2", fb_data.player2);
             console.log("been set");
             setTimeout(50);
-            createActiveGame();
         } else {
         }
     }).catch((error) => {
         console.log("error:  " + error);
     });
-
 }
 function createActiveGame() {
-    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/player2");
-
+    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
     onValue(dbReference, (snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             const Host = sessionStorage.getItem("host");
             const player2 = sessionStorage.getItem("player2");
+            console.log(Host + " This is the host")
+            console.log(player2 + " This is the player that joined")
             if (userUID == Host) {
                 userState = "firstPlayer"
-                console.log("you are the host") 
-            } else {
+                console.log("you are the host")
+            } if (userState == player2) {
                 userState = "secondPlayer"
                 console.log("you are the player 2")
             }
         } else {
-
         }
 
     });
-
 }
