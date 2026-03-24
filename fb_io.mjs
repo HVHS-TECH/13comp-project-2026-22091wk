@@ -349,25 +349,25 @@ function createLobby() {
         console.log("very successful");
         setHostnPlayer()
         setTimeout(100)
-        createActiveGame();
 
     }).catch((error) => {
         console.log("error  " + error)
     });
 
-    
+
 
 };
 function joinLobby() {
     userUID = sessionStorage.getItem("UID");
     console.log(userUID);
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
-    update(dbReference, { player2: userUID, }).then(() => {
+    update(dbReference, { player2: userUID }).then(() => {
         console.log("very successful");
     }).catch((error) => {
         console.log("error  " + error)
     });
     setHostnPlayer()
+    listenCreateGame();
 
 }
 
@@ -388,24 +388,27 @@ function setHostnPlayer() {
         console.log("error:  " + error);
     });
 }
-function createActiveGame() {
+function listenCreateGame() {
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
     onValue(dbReference, (snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             const Host = sessionStorage.getItem("host");
             const player2 = sessionStorage.getItem("player2");
-            console.log(Host + " This is the host")
-            console.log(player2 + " This is the player that joined")
-            if (userUID == Host) {
-                userState = "firstPlayer"
-                console.log("you are the host")
-            } if (userState == player2) {
-                userState = "secondPlayer"
-                console.log("you are the player 2")
-            }
-        } else {
+            console.log(Host + " This is the host");
+            console.log(player2 + " This is the player that joined");
+            createActiveGame();
         }
-
+    });
+}
+function createActiveGame() {
+    const Host = sessionStorage.getItem("host");
+    const player2 = sessionStorage.getItem("player2");
+    const number = ""  
+    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/Active/game1");
+    update(dbReference, {Guess: 0, Number: 0, player1: Host, player2: player2  }).then(() => { 
+        console.log("update successful");
+    }).catch((error) => {
+        console.log("error  " + error);
     });
 }
