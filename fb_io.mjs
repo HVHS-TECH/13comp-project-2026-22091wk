@@ -18,7 +18,7 @@ import { initializeApp }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, onValue }
+import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, onValue, remove }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 
@@ -345,10 +345,9 @@ function createLobby() {
     });
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
 
-    set(dbReference, { player2: "none", host: userUID }).then(() => {
+    set(dbReference, { host: userUID }).then(() => {
         console.log("very successful");
-        setHostnPlayer()
-        setTimeout(100)
+        setHost()
 
     }).catch((error) => {
         console.log("error  " + error)
@@ -356,7 +355,7 @@ function createLobby() {
 
 
 
-};
+};  
 function joinLobby() {
     userUID = sessionStorage.getItem("UID");
     console.log(userUID);
@@ -366,22 +365,36 @@ function joinLobby() {
     }).catch((error) => {
         console.log("error  " + error)
     });
-    setHostnPlayer()
+    setPlayer()
     listenCreateGame();
+    deleteLobby();
 
 }
 
 
-function setHostnPlayer() {
+function setHost() {
     const dbReference2 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
     get(dbReference2).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             console.log("Data: " + fb_data.host);
             sessionStorage.setItem("host", fb_data.host);
+            console.log("been set");
+        } else {
+        }
+    }).catch((error) => {
+        console.log("error:  " + error);
+    });
+}
+function setPlayer() {
+    const dbReference2 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
+    get(dbReference2).then((snapshot) => {
+        var fb_data = snapshot.val();
+        if (fb_data != null) {
+            console.log("Data: " + fb_data.host);
+            sessionStorage.setItem("player2", fb_data.player2);
             sessionStorage.setItem("player2", fb_data.player2);
             console.log("been set");
-            setTimeout(50);
         } else {
         }
     }).catch((error) => {
@@ -389,26 +402,30 @@ function setHostnPlayer() {
     });
 }
 function listenCreateGame() {
-    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
-    onValue(dbReference, (snapshot) => {
-        var fb_data = snapshot.val();
-        if (fb_data != null) {
+    //const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
+    //onValue(dbReference, (snapshot) => {
+    //    var fb_data = snapshot.val();
+      //  if (fb_data != null) {
             const Host = sessionStorage.getItem("host");
             const player2 = sessionStorage.getItem("player2");
             console.log(Host + " This is the host");
             console.log(player2 + " This is the player that joined");
             createActiveGame();
         }
-    });
-}
+  //  });
+//}
 function createActiveGame() {
     const Host = sessionStorage.getItem("host");
     const player2 = sessionStorage.getItem("player2");
-    const number = ""  
+    const number = Math.ceil(Math.random() * 99);
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/Active/game1");
-    update(dbReference, {Guess: 0, Number: 0, player1: Host, player2: player2  }).then(() => { 
+    update(dbReference, { Guess: 0, Number: number, Turn: Host, player1: Host, player2: player2 }).then(() => {
         console.log("update successful");
     }).catch((error) => {
         console.log("error  " + error);
     });
+}
+function deleteLobby() {
+    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
+    remove(dbReference)
 }
