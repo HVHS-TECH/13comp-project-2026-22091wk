@@ -360,7 +360,7 @@ function joinLobby() {
     userUID = sessionStorage.getItem("UID");
     console.log(userUID);
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
-    update(dbReference, { player2: userUID }).then(() => {
+    set(dbReference, { player2: userUID }).then(() => {
         console.log("very successful");
     }).catch((error) => {
         console.log("error  " + error)
@@ -373,29 +373,32 @@ function joinLobby() {
 
 
 function setHost() {
-    const dbReference2 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
-    get(dbReference2).then((snapshot) => {
+    const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
+    get(dbReference1).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             console.log("Data: " + fb_data.host);
             sessionStorage.setItem("host", fb_data.host);
             console.log("been set");
         } else {
+            console.log("emergency u have a bad problem")
         }
     }).catch((error) => {
         console.log("error:  " + error);
     });
 }
 function setPlayer() {
-    const dbReference2 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
-    get(dbReference2).then((snapshot) => {
+    console.log("function should be running");
+    const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
+    get(dbReference1).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
-            console.log("Data: " + fb_data.host);
+            console.log("Data: " + fb_data.host + fb_data.player2);
             sessionStorage.setItem("player2", fb_data.player2);
-            sessionStorage.setItem("player2", fb_data.player2);
+            sessionStorage.setItem("host", fb_data.host);
             console.log("been set");
         } else {
+            console.log("emergency u have a bad problem")
         }
     }).catch((error) => {
         console.log("error:  " + error);
