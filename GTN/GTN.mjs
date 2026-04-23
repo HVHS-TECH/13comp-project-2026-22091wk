@@ -24,7 +24,7 @@ let borderSpawned = false;
 let spaceshipSpawned = false;
 let asteroidSpawningChance = 0;
 let coinSpawningChance = 0;
-let asteroidSpawned = false;
+let profilePictureSpawned = false;
 let score = 0;
 let lives = 5
 let checkLives = true
@@ -43,11 +43,7 @@ var once = 0;
 /*******************************************************/
 //const container
 /*******************************************************/
-const ASTEROIDSPAWNINGCHANCEPARAMETER = 3;
-const ASTEROIDSPEED = -10;
-const ASTEROIDGOESSTRAIGHT = 0;
-const CLICKCOUNTERINCREASE = 0.5;
-const COINSPAWNINGCHANCEPARAMETER = 2;
+
 
 /*******************************************************/
 function setup() {
@@ -77,6 +73,16 @@ function draw() {
 
     playState();
 }
+function preload() {
+	startText = loadImage('../assets/start_image.png');
+	spaceshipModel = loadImage('../assets/spaceshipImage.gif')
+	asteroidModel = loadImage('../assets/asteroid.png');
+	coinModel = loadImage('../assets/coin.png')
+	banner = loadImage('../assets/banner.png')
+
+
+
+}
 /*******************************************************/
 // functions()
 /*******************************************************/
@@ -86,7 +92,7 @@ function draw() {
 //
 function playState() {
     if (gameState == "intro") {
-
+        spawnProfilePicture();
         gameStateChanger1();
     }
     else if (gameState == "instructions") {
@@ -112,9 +118,9 @@ function playState() {
     }
 }
 function gameStateChanger1() {
-	if (clickedCounter == 1) {
-		gameState = "instructions";
-	}
+    if (clickedCounter == 1) {
+        gameState = "instructions";
+    }
 }
 
 //******************* */
@@ -123,9 +129,9 @@ function gameStateChanger1() {
 // Changes the gameState from instructions to play 
 //******************* */
 function gameStateChanger2() {
-	if (clickedCounter == 2) {
-		gameState = "play";
-	}
+    if (clickedCounter == 2) {
+        gameState = "play";
+    }
 }
 //******************* */
 // gameStateChanger3()
@@ -133,11 +139,19 @@ function gameStateChanger2() {
 // Changes the gameState from play to lose
 //******************* */
 function gameStateChanger3() {
-	if (gameStateChanged < 1) {
-		if (lives <= 0) {
-			gameState = "lose";
-			gameStateChanged = 1;
-		}
-	}
+    if (gameStateChanged < 1) {
+        if (lives <= 0) {
+            gameState = "lose";
+            gameStateChanged = 1;
+        }
+    }
 }
-
+function spawnProfilePicture() {
+    if (profilePictureSpawned == false) {
+        profilePicture = new Sprite(windowWidth/2, windowHeight/2-200, 170, 'd');
+        profilePictureSpawned = true;
+        profilePicture.image = "https://lh3.googleusercontent.com/a/ACg8ocJz9Ta2r5HIu1L3XnW2iQsoEfwR4x9V7KHCDknxz8-aP18vNtQ=s96-c";
+        
+    }
+    
+}
