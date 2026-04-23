@@ -174,7 +174,7 @@ function fb_writeFarLands() {
     //    });
 }
 
-function fb_writeRecord(_path,_key){
+function fb_writeRecord(_path, _key) {
 }
 
 
@@ -361,21 +361,8 @@ function createLobby() {
 
 
 
-};  
-function joinLobby() {
-    userUID = sessionStorage.getItem("UID");
-    console.log(userUID);
-    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
-    update(dbReference, { player2: userUID }).then(() => {
-        console.log("very successful");
-    }).catch((error) => {
-        console.log("error  " + error)
-    });
-    setPlayer()
-    listenCreateGame();
-    deleteLobby();
+};
 
-}
 
 
 function setHost() {
@@ -393,8 +380,16 @@ function setHost() {
         console.log("error:  " + error);
     });
 }
-function setPlayer() {
+
+async function deleteLobby() {
+    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
+    remove(dbReference)
+}
+async function joinLobby() {
     console.log("function should be running");
+    userUID = sessionStorage.getItem("UID");
+    console.log("This is your UID " + userUID);
+
     const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
     get(dbReference1).then((snapshot) => {
         var fb_data = snapshot.val();
@@ -402,39 +397,37 @@ function setPlayer() {
             console.log("Data: " + fb_data.host + fb_data.player2);
             sessionStorage.setItem("player2", fb_data.player2);
             sessionStorage.setItem("host", fb_data.host);
+            const host = fb_data.host;
+            const player2 = fb_data.player2;
             console.log("been set");
+
+            if (host != userUID && player2 == undefined) {
+                update(dbReference1, { player2: userUID }).then(() => {
+                    console.log("very successful");
+                }).catch((error) => {
+                    console.log("error  " + error)
+                });
+
+                const Host = sessionStorage.getItem("host");
+                const player2 = sessionStorage.getItem("player2");
+                const number = Math.ceil(Math.random() * 99);
+                const dbReference2 = ref(fb_gamedb, "Games/guessTheNumber/Active/game1");
+                update(dbReference2, { Guess: 0, Number: number, Turn: Host, player1: Host, player2: player2 }).then(() => {
+                    console.log("update successful");
+                }).catch((error) => {
+                    console.log("error  " + error);
+                });
+                deleteLobby();
+            } else {
+                console.log("You can not be the Host and the Player at the same time")
+            }
+
         } else {
             console.log("emergency u have a bad problem")
         }
     }).catch((error) => {
         console.log("error:  " + error);
     });
-}
-function listenCreateGame() {
-    //const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
-    //onValue(dbReference, (snapshot) => {
-    //    var fb_data = snapshot.val();
-      //  if (fb_data != null) {
-            const Host = sessionStorage.getItem("host");
-            const player2 = sessionStorage.getItem("player2");
-            console.log(Host + " This is the host");
-            console.log(player2 + " This is the player that joined");
-            createActiveGame();
-        }
-  //  });
-//}
-function createActiveGame() {
-    const Host = sessionStorage.getItem("host");
-    const player2 = sessionStorage.getItem("player2");
-    const number = Math.ceil(Math.random() * 99);
-    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/Active/game1");
-    update(dbReference, { Guess: 0, Number: number, Turn: Host, player1: Host, player2: player2 }).then(() => {
-        console.log("update successful");
-    }).catch((error) => {
-        console.log("error  " + error);
-    });
-}
-function deleteLobby() {
-    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
-    remove(dbReference)
+
+
 }
