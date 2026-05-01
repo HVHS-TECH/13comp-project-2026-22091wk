@@ -92,7 +92,6 @@ function preload() {
 //
 function playState() {
     if (gameState == "intro") {
-        spawnProfilePicture();
         gameStateChanger1();
     }
     else if (gameState == "instructions") {
@@ -146,12 +145,4 @@ function gameStateChanger3() {
         }
     }
 }
-function spawnProfilePicture() {
-    if (profilePictureSpawned == false) {
-        profilePicture = new Sprite(windowWidth/2, windowHeight/2-200, 170, 'd');
-        profilePictureSpawned = true;
-        profilePicture.image = "https://lh3.googleusercontent.com/a/ACg8ocJz9Ta2r5HIu1L3XnW2iQsoEfwR4x9V7KHCDknxz8-aP18vNtQ=s96-c";
-        
-    }
-    
-}
+

@@ -8,6 +8,7 @@ var newScoreValid;
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
 let userState
+let lobbyID;
 
 /**************************************************************/
 // Importing all external constants & functions here
@@ -105,7 +106,7 @@ function fb_writeAuth() {
     userUID = sessionStorage.getItem("UID");
     console.log(userUID);
     const auth = getAuth();
-    auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged(user =>  {
         if (user) {
             console.log("Signed in as:", user.uid);
         } else {
@@ -338,6 +339,12 @@ function fb_updateInformationRegistrationCG() {
 /**************************************************************/
 // Creating the lobby in firebase
 /**************************************************************/
+function lobbyID() {
+    const userUID = sessionStorage.getItem("UID");
+    lobbyID = Math.ceil(Math.random() * 1000000);
+    lobbyID = lobbyID + userUID;
+
+}
 function createLobby() {
     const userUID = sessionStorage.getItem("UID");
     console.log(userUID);
@@ -349,24 +356,25 @@ function createLobby() {
             console.log("Not signed in");
         }
     });
-    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
+    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/lobbies" + lobbyID);
 
     set(dbReference, { host: userUID }).then(() => {
         console.log("very successful");
-        setHost()
+        setHost();
 
     }).catch((error) => {
         console.log("error  " + error)
     });
+    spawnProfilePicture();
 
 
 
-};
+}
 
 
 
 function setHost() {
-    const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
+    const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players" );
     get(dbReference1).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
@@ -401,6 +409,7 @@ async function joinLobby() {
             const player2 = fb_data.player2;
             console.log("been set");
 
+
             if (host != userUID && player2 == undefined) {
                 update(dbReference1, { player2: userUID }).then(() => {
                     console.log("very successful");
@@ -430,4 +439,9 @@ async function joinLobby() {
     });
 
 
+}
+function spawnProfilePicture() {
+    profilePicture = new Sprite(windowWidth / 2, windowHeight / 2 - 200, 170, 'd');
+    profilePicture.image = "https://lh3.googleusercontent.com/a/ACg8ocLQkSC1ZySxKbpUkyym3Qkh8wQyL1JbmoN1I9ykka5Y8G5Xpo8=s96-c";
+    document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
 }
