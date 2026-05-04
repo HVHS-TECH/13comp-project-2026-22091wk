@@ -334,7 +334,7 @@ function fb_updateInformationRegistrationCG() {
 
 }
 /**************************************************************/
-// First GTN Functions
+// First GTN Functionstest
 /**************************************************************/
 /**************************************************************/
 // Creating the lobby in firebase
