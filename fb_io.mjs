@@ -1,14 +1,16 @@
-var fb_gamedb;
-var userUID;
-var username;
-var userDisplayName;
-var userProfilePicture
-var leaderboard1;
-var newScoreValid;
+let fb_gamedb;
+let userUID;
+let username;
+let userDisplayName;
+let userProfilePicture
+let leaderboard1;
+let newScoreValid;
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
 let userState
 let lobbyID;
+let lobbyIDCreate1 = 0
+
 
 /**************************************************************/
 // Importing all external constants & functions here
@@ -106,7 +108,7 @@ function fb_writeAuth() {
     userUID = sessionStorage.getItem("UID");
     console.log(userUID);
     const auth = getAuth();
-    auth.onAuthStateChanged(user =>  {
+    auth.onAuthStateChanged(user => {
         if (user) {
             console.log("Signed in as:", user.uid);
         } else {
@@ -137,7 +139,7 @@ function fb_writeAuth() {
     //    });
 }
 function fb_writeFarLands() {
-    var score;
+    let score;
     score = sessionStorage.getItem("score");
     userUID = sessionStorage.getItem("UID");
     console.log(score);
@@ -181,7 +183,7 @@ function fb_writeRecord(_path, _key) {
 
 
 function fb_writeCoinGame() {
-    var score;
+    let score;
     score = sessionStorage.getItem("score");
     userUID = sessionStorage.getItem("UID");
     console.log(score);
@@ -218,11 +220,11 @@ function fb_writeCoinGame() {
     //    });
 }
 function fb_read_sortedFL() {
-    var sortKey = "Score";
+    let sortKey = "Score";
     const dbReference = query(ref(fb_gamedb, "Games/FarLands/Users"), orderByChild(sortKey), limitToFirst(3));
     get(dbReference).then((Snapshot) => {
         Snapshot.forEach(function (userScoreSnapshot) {
-            var fb_data = userScoreSnapshot.val();
+            let fb_data = userScoreSnapshot.val();
             if (fb_data != null) {
                 console.log(fb_data.Score)
                 leaderboard1 = fb_data
@@ -254,11 +256,11 @@ function fb_read_sortedFL() {
 
 
 function fb_read_sortedCG() {
-    var sortKey = "Score";
+    let sortKey = "Score";
     const dbReference = query(ref(fb_gamedb, "Games/CoinGame/Users"), orderByChild(sortKey), limitToFirst(3));
     get(dbReference).then((Snapshot) => {
         Snapshot.forEach(function (userScoreSnapshot) {
-            var fb_data = userScoreSnapshot.val();
+            let fb_data = userScoreSnapshot.val();
             if (fb_data != null) {
                 console.log(fb_data.Score);
                 leaderboard1 = fb_data;
@@ -339,16 +341,22 @@ function fb_updateInformationRegistrationCG() {
 /**************************************************************/
 // Creating the lobby in firebase
 /**************************************************************/
-function lobbyID() {
-    const userUID = sessionStorage.getItem("UID");
-    lobbyID = Math.ceil(Math.random() * 1000000);
-    lobbyID = lobbyID + userUID;
+async function lobbyJoinCode() {
+    if (lobbyIDCreate1 == 0) {
+       // const userUID = sessionStorage.getItem("UID");
+        let lobbyID = Math.ceil(Math.random() * 1000000);
+        //lobbyID = lobbyID + userUID;
+        lobbyIDCreate1 = 1;
+        console.log(lobbyID); 
+        return lobbyID;
+    } 
 
 }
-function createLobby() {
+async function createLobby() {
     const userUID = sessionStorage.getItem("UID");
     console.log(userUID);
     const auth = getAuth();
+    let lobbyID = await lobbyJoinCode();
     auth.onAuthStateChanged(user => {
         if (user) {
             console.log("Signed in as:", user.uid);
@@ -356,12 +364,13 @@ function createLobby() {
             console.log("Not signed in");
         }
     });
-    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/lobbies" + lobbyID);
+    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + lobbyID);
 
-    set(dbReference, { host: userUID }).then(() => {
+    set(dbReference, {Guess: "NONE" , active: "NO", Turn: "NONE", player2: " ", player1: userUID, lobby: lobbyID}).then(() => {
         console.log("very successful");
         setHost();
-
+        document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
+        
     }).catch((error) => {
         console.log("error  " + error)
     });
@@ -373,10 +382,10 @@ function createLobby() {
 
 
 
-function setHost() {
-    const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players" );
+async function setHost() {
+    const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + lobbyID);
     get(dbReference1).then((snapshot) => {
-        var fb_data = snapshot.val();
+        let fb_data = snapshot.val();
         if (fb_data != null) {
             console.log("Data: " + fb_data.host);
             sessionStorage.setItem("host", fb_data.host);
@@ -400,7 +409,7 @@ async function joinLobby() {
 
     const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
     get(dbReference1).then((snapshot) => {
-        var fb_data = snapshot.val();
+        let fb_data = snapshot.val();
         if (fb_data != null) {
             console.log("Data: " + fb_data.host + fb_data.player2);
             sessionStorage.setItem("player2", fb_data.player2);
@@ -441,7 +450,7 @@ async function joinLobby() {
 
 }
 function spawnProfilePicture() {
-    profilePicture = new Sprite(windowWidth / 2, windowHeight / 2 - 200, 170, 'd');
+   const profilePicture = new Sprite(windowWidth / 2, windowHeight / 2 - 200, 170, 'd');
     profilePicture.image = "https://lh3.googleusercontent.com/a/ACg8ocLQkSC1ZySxKbpUkyym3Qkh8wQyL1JbmoN1I9ykka5Y8G5Xpo8=s96-c";
     document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
 }
