@@ -11,6 +11,18 @@ let userState
 let lobbyID;
 let lobbyIDCreate1 = 0
 
+function preload() {
+	startText = loadImage('assets/start_image.png');
+	spaceshipModel = loadImage('assets/spaceshipImage.gif')
+	asteroidModel = loadImage('assets/asteroid.png');
+	coinModel = loadImage('assets/coin.png')
+	banner = loadImage('assets/banner.png')
+    defaultprofile = loadImage('assets/defaultProfilePicture.png')
+
+
+
+}
+
 
 /**************************************************************/
 // Importing all external constants & functions here
@@ -450,7 +462,13 @@ async function joinLobby() {
 
 }
 function spawnProfilePicture() {
-   const profilePicture = new Sprite(windowWidth / 2, windowHeight / 2 - 200, 170, 'd');
-    profilePicture.image = "https://lh3.googleusercontent.com/a/ACg8ocLQkSC1ZySxKbpUkyym3Qkh8wQyL1JbmoN1I9ykka5Y8G5Xpo8=s96-c";
+   const profilePicture = new Sprite(windowWidth / 2 -200, windowHeight / 2 - 200, 170, 'd');
+    profilePicture.image = "../assets/defaultProfilePicture.png";
     document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
+
+    const profilePicture2 = new Sprite(windowWidth / 2 +200, windowHeight / 2 - 200, 170, 'd');
+    profilePicture2.image = "../assets/defaultProfilePicture.png";
+    profilePicture2.image.resize
+
+    
 }
