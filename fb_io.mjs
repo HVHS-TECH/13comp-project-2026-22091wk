@@ -461,14 +461,4 @@ async function joinLobby() {
 
 
 }
-function spawnProfilePicture() {
-   const profilePicture = new Sprite(windowWidth / 2 -200, windowHeight / 2 - 200, 170, 'd');
-    profilePicture.image = "../assets/defaultProfilePicture.png";
-    document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
 
-    const profilePicture2 = new Sprite(windowWidth / 2 +200, windowHeight / 2 - 200, 170, 'd');
-    profilePicture2.image = "../assets/defaultProfilePicture.png";
-    profilePicture2.image.resize
-
-    
-}

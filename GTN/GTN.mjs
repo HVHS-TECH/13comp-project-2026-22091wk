@@ -49,6 +49,8 @@ var once = 0;
 function setup() {
     console.log("setup: ");
     cnv = new Canvas(windowWidth - 4, windowHeight - 4);
+    profileGroup = new Group();
+    spawnProfilePicture();
     if (gameState == "intro") {
         UID = sessionStorage.getItem("UID");
         userName = sessionStorage.getItem("userName");
@@ -70,15 +72,18 @@ function setup() {
 // draw()
 /*******************************************************/
 function draw() {
-
+    
     playState();
 }
 function preload() {
-	startText = loadImage('../assets/start_image.png');
-	spaceshipModel = loadImage('../assets/spaceshipImage.gif')
-	asteroidModel = loadImage('../assets/asteroid.png');
-	coinModel = loadImage('../assets/coin.png')
-	banner = loadImage('../assets/banner.png')
+    startText = loadImage('../assets/start_image.png');
+    spaceshipModel = loadImage('../assets/spaceshipImage.gif')
+    asteroidModel = loadImage('../assets/asteroid.png');
+    coinModel = loadImage('../assets/coin.png')
+    banner = loadImage('../assets/banner.png')
+    defaultprofile = loadImage('../assets/defaultProfilePicture.png')
+
+    
 
 
 
@@ -147,3 +152,16 @@ function gameStateChanger3() {
     }
 }
 
+function spawnProfilePicture() {
+
+    const profilePicture = new Sprite(windowWidth / 2 - 350, windowHeight / 2 - 200, 170, 'd');
+    profilePicture.image = defaultprofile;
+    document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
+    profileGroup.add(profilePicture)
+
+    const profilePicture2 = new Sprite(windowWidth / 2 + 350, windowHeight / 2 - 200, 170, 'd');
+    profilePicture2.image = defaultprofile;
+    profilePicture2.image.resize(400, 400)
+    profileGroup.add(profilePicture2)
+    console.log("this works");
+}
