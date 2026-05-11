@@ -353,6 +353,25 @@ function fb_updateInformationRegistrationCG() {
 /**************************************************************/
 // Creating the lobby in firebase
 /**************************************************************/
+
+async function getInfo(_path) {  
+    
+    const dbReference= ref(fb_gamedb, _path);
+
+    get(dbReference).then((snapshot) => {
+        var fb_data = snapshot.val();
+        if (fb_data != null) {
+        document.getElementById("p_fbReadRec").innerHTML = "Successful";
+        fb_data.
+        console.log("Data: " + fb_data);
+        } else {
+        document.getElementById("p_fbReadRec").innerHTML = "No Record Found";
+        }
+    }).catch((error) => {
+        console.log("error:  " + error );
+    });
+
+}
 async function lobbyJoinCode() {
     if (lobbyIDCreate1 == 0) {
        // const userUID = sessionStorage.getItem("UID");
@@ -372,6 +391,7 @@ async function createLobby() {
     auth.onAuthStateChanged(user => {
         if (user) {
             console.log("Signed in as:", user.uid);
+            sessionStorage.setItem("hostProfile", user.photoURL);
         } else {
             console.log("Not signed in");
         }
@@ -386,7 +406,6 @@ async function createLobby() {
     }).catch((error) => {
         console.log("error  " + error)
     });
-    spawnProfilePicture();
 
 
 
