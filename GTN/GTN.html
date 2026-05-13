@@ -26,12 +26,12 @@
 <body onload="fb_initialise()">
   <header class="container">
   </header>
-  <button onclick="createLobby(); spawnDefaultProfilePicture();">Create lobby</button>
+  <button onclick="createLobby(); spawnDefaultProfilePicture();spawnProfilePicture();">Create lobby</button>
   <h2 id="waiting"> </h2>
 
   
     <section id="joinSection">
-    <label for="code">Enter the join code:</label>
+    <label for="joinCode">Enter the join code:</label>
     <input type="number" id="joinCode" name="joinCode" required />  
     <button onclick="joinLobby(); ">join lobby</button>
     <button onclick="spawnProfilePicture();">testing sprite</button>
