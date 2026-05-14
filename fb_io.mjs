@@ -102,7 +102,7 @@ function fb_authenticate() {
 
         sessionStorage.setItem("UID", userUID);
         // sessionStorage.setItem("userDisplayName", userDisplayName);
-        // sessionStorage.setItem("userProfilePicture", userProfilePicture);
+        sessionStorage.setItem("userProfilePicture", userProfilePicture);
 
 
         console.log(AUTH);

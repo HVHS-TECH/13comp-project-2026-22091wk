@@ -46,26 +46,8 @@ let once2 = 0
 
 
 /*******************************************************/
-function preload() {
-    startText = loadImage('../assets/start_image.png');
-    spaceshipModel = loadImage('../assets/spaceshipImage.gif')
-    asteroidModel = loadImage('../assets/asteroid.png');
-    coinModel = loadImage('../assets/coin.png')
-    banner = loadImage('../assets/banner.png')
-    defaultprofile = loadImage('../assets/defaultProfilePicture.png')
-
-
-
-
-
-
-}
-
 function setup() {
     console.log("setup: ");
-    cnv = new Canvas(windowWidth - 4, windowHeight - 4);
-    hostGroup = new Group();  
-    playerGroup = new Group(); 
     spawnDefaultProfilePicture();
     if (gameState == "intro") {
         UID = sessionStorage.getItem("UID");
@@ -73,6 +55,12 @@ function setup() {
         if (UID == null) {
             window.location.replace("../registration/registration.html");
         }
+
+
+
+
+
+
     }
     else if (gameState == "play") {
 
@@ -84,13 +72,14 @@ function setup() {
     }
 }
 
+function hideImageOnLoad() {
+    const userProfilePicture = sessionStorage.getItem("userProfilePicture")
+    document.getElementById("hostProfile").src=userProfilePicture
+}
+
 /*******************************************************/
 // draw()
 /*******************************************************/
-function draw() {
-
-    playState();
-}
 
 /*******************************************************/
 // functions()
@@ -161,30 +150,31 @@ function spawnDefaultProfilePicture() {
     
     if (once2 == 0){
         once2 = 1;
-    profilePicture = new Sprite(windowWidth / 2 - 350, windowHeight / 2 - 200, 170, 'd');
-    profilePicture.image = defaultprofile;
-    profilePicture.image.resize(400, 400)
-    document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
-        hostGroup.add(profilePicture)
+    // profilePicture = new Sprite(windowWidth / 2 - 350, windowHeight / 2 - 200, 170, 'd');
+    // profilePicture.image = defaultprofile;
+    // profilePicture.image.resize(400, 400)
 
-    profilePicture2 = new Sprite(windowWidth / 2 + 350, windowHeight / 2 - 200, 170, 'd');
-    profilePicture2.image = defaultprofile;
-    profilePicture2.image.resize(400, 400)
-    playerGroup.add(profilePicture2)
+    document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
+        // hostGroup.add(profilePicture)
+
+    // profilePicture2 = new Sprite(windowWidth / 2 + 350, windowHeight / 2 - 200, 170, 'd');
+    // profilePicture2.image = defaultprofile;
+    // profilePicture2.image.resize(400, 400)
+    // playerGroup.add(profilePicture2)
     console.log("this works");
     
 } else if (once2 ==1) {
-    profilePicture.remove()
+    // profilePicture.remove()
     console.log("it has been deleted")
 }
 
 }
-function spawnProfilePicture() {
- profilePicture.remove()
- console.log("removed")
-   // console.log(hostGroup)
- //   var hostProfilePicture = sessionStorage.getItem("hostProfile");
-  //  if(hostProfilePicture =! null) {
- //  hostGroup.image = hostProfilePicture;
-  //  }
-}
+// function spawnProfilePicture() {
+//  profilePicture.remove()
+//  console.log("removed")
+//     console.log(hostGroup)
+//     var hostProfilePicture = sessionStorage.getItem("hostProfile");
+//     if(hostProfilePicture =! null) {
+//    hostGroup.image = hostProfilePicture;
+//     }
+// }
