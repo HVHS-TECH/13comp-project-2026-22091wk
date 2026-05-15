@@ -52,6 +52,7 @@ function setup() {
     if (gameState == "intro") {
         UID = sessionStorage.getItem("UID");
         userName = sessionStorage.getItem("userName");
+        
         if (UID == null) {
             window.location.replace("../registration/registration.html");
         }
@@ -74,7 +75,8 @@ function setup() {
 
 function hideImageOnLoad() {
     const userProfilePicture = sessionStorage.getItem("userProfilePicture")
-    document.getElementById("hostProfile").src=userProfilePicture
+    document.getElementById("hostProfile").src = userProfilePicture
+    document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
 }
 
 /*******************************************************/

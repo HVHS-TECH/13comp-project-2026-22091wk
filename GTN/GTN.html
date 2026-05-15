@@ -22,7 +22,7 @@
 <body onload="fb_initialise();setup();">
   <header class="container">
   </header>
-  <button onclick="createLobby(); spawnDefaultProfilePicture();">Create lobby</button>
+  <button onclick="createLobby(); hideImageOnLoad();">Create lobby</button>
   <h2 id="waiting"> </h2>
 
   <!-- spawnProfilePicture(); -->
@@ -42,8 +42,11 @@
     <p1 id="displayJoinCode"> </p1>
   </section>
   <section class="profiles">
-    <img src="" alt="hostProfile" id="hostProfile">
-    <img src="" alt="player2Profile" id="player2Profile">
+    <img src="../assets/defaultProfilePicture.png" alt="hostProfile" id="hostProfile">
+    <img src="../assets/defaultProfilePicture.png" alt="player2Profile" id="player2Profile">
+  </section>
+  <section>
+    <h4>VS</p>
   </section>
 
   <script src="GTN.mjs"></script>
