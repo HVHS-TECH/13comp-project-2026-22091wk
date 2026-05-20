@@ -357,14 +357,23 @@ function fb_updateInformationRegistrationCG() {
 
 async function getInfo() {  
     
-    const dbReference= ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + joinCodeEntered + "player2");
+    const dbReference= ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + joinCodeEntered);
     get(dbReference).then((snapshot) => {
         let fb_data = snapshot.val();
         if (fb_data != null) {
-        document.getElementById("p_fbReadRec").innerHTML = "Successful";
-        console.log("Data: " + fb_data);
+        //document.getElementById("p_fbReadRec").innerHTML = "Successful";
+        console.log("Data: ", fb_data);
+        let player2 = fb_data.player2
+        console.log(player2);
+        if(player2 == "NONE") {
+            const path = "Games/guessTheNumber/lobbies/" + joinCodeEntered
+            console.log(path)
+            fb_update(path, "player2", userUID );
+        }
+        
         } else {
-        document.getElementById("p_fbReadRec").innerHTML = "No Record Found";
+        //document.getElementById("p_fbReadRec").innerHTML = "No Record Found";
+        console.log("um")
         }
     }).catch((error) => {
         console.log("error:  " + error );
@@ -397,7 +406,7 @@ async function createLobby() {
     });
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + lobbyID);
 
-    set(dbReference, {Guess: "NONE" , active: "NO", Turn: "NONE", player2: " ", player1: userUID, lobby: lobbyID}).then(() => {
+    set(dbReference, {Guess: "NONE" , active: "NO", Turn: "NONE", player2: "NONE", player1: userUID, lobby: lobbyID}).then(() => {
         console.log("very successful");
         setHost();
         document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
@@ -409,7 +418,30 @@ async function createLobby() {
 
 
 }
+function fb_write(_path, _label, _information) {
+    const dbReference = ref(fb_gamedb, _path);
 
+    set(dbReference, { [_label]: _information}).then(() => {
+        console.log("very successful");
+        setHost();
+        document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
+
+    }).catch((error) => {
+        console.log("error  " + error)
+    });
+}
+function fb_update(_path, _label, _information) {
+    const dbReference = ref(fb_gamedb, _path);
+
+    update(dbReference, { [_label]: _information}).then(() => {
+        console.log("very successful");
+        setHost();
+        document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
+
+    }).catch((error) => {
+        console.log("error  " + error)
+    });
+}
 
 
 async function setHost() {
