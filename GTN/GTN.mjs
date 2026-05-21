@@ -73,10 +73,15 @@ function setup() {
     }
 }
 
-function hideImageOnLoad() {
+function showImageOnLoadHost() {
     const userProfilePicture = sessionStorage.getItem("userProfilePicture")
     document.getElementById("hostProfile").src = userProfilePicture
     document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
+}
+function showImageOnLoadPlayer2() {
+    const userProfilePicture = sessionStorage.getItem("userProfilePicture")
+    document.getElementById("player2Profile").src = userProfilePicture
+    document.getElementById("hostWaiting").innerHTML = "Ready Up!";
 }
 
 /*******************************************************/

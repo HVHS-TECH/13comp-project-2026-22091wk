@@ -22,14 +22,14 @@
 <body onload="fb_initialise();setup();">
   <header class="container">
   </header>
-  <button onclick="createLobby(); hideImageOnLoad();">Create lobby</button>
+  <button onclick="createLobby(); showImageOnLoadHost();">Create lobby</button>
   <h2 id="waiting"> </h2>
 
   <!-- spawnProfilePicture(); -->
     <section id="joinSection">
     <label for="joinCode">Enter the join code:</label>
     <input type="number" id="joinCode" name="joinCode" required />  
-    <button onclick="joinLobby(); ">join lobby</button>
+    <button onclick="joinLobby(); showImageOnLoadPlayer2();">join lobby</button>
     <button onclick="spawnProfilePicture();">testing sprite</button>
   </section>
 

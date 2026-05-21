@@ -2,7 +2,7 @@ let fb_gamedb;
 let userUID;
 let username;
 let userDisplayName;
-let userProfilePicture
+let userProfilePicture;
 let leaderboard1;
 let newScoreValid;
 const COL_C = 'white';	    // These two const are part of the coloured 	
@@ -190,10 +190,6 @@ function fb_writeFarLands() {
     //    });
 }
 
-function fb_writeRecord(_path, _key) {
-}
-
-
 
 function fb_writeCoinGame() {
     let score;
@@ -368,7 +364,9 @@ async function getInfo() {
         if(player2 == "NONE") {
             const path = "Games/guessTheNumber/lobbies/" + joinCodeEntered
             console.log(path)
+            const player2Image = sessionStorage.getItem("userProfilePicture");
             fb_update(path, "player2", userUID );
+            fb_update(path, "player2IMG", player2Image );
         }
         
         } else {
@@ -405,8 +403,8 @@ async function createLobby() {
         }
     });
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + lobbyID);
-
-    set(dbReference, {Guess: "NONE" , active: "NO", Turn: "NONE", player2: "NONE", player1: userUID, lobby: lobbyID}).then(() => {
+    const player1Image = sessionStorage.getItem("userProfilePicture");
+    set(dbReference, {Guess: "NONE", active: "NO", Turn: "NONE", player2: "NONE", player1: userUID, player1IMG: player1Image, player2IMG: "NONE",  lobby: lobbyID}).then(() => {
         console.log("very successful");
         setHost();
         document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
@@ -442,8 +440,6 @@ function fb_update(_path, _label, _information) {
         console.log("error  " + error)
     });
 }
-
-
 async function setHost() {
     const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + lobbyID);
     get(dbReference1).then((snapshot) => {
@@ -459,7 +455,6 @@ async function setHost() {
         console.log("error:  " + error);
     });
 }
-
 async function deleteLobby() {
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
     remove(dbReference)
