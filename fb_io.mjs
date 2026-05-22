@@ -11,7 +11,7 @@ let userState
 let lobbyID;
 let lobbyIDCreate1 = 0
 let joinCodeEntered;
-
+let onceCreate = 0;
 function preload() {
 	startText = loadImage('assets/start_image.png');
 	spaceshipModel = loadImage('assets/spaceshipImage.gif')
@@ -390,6 +390,9 @@ async function lobbyJoinCode() {
 
 }
 async function createLobby() {
+    if(onceCreate == 0 ) {
+        onceCreate = 1;
+        sessionStorage.setItem(onceCreate, onceCreate)
     const userUID = sessionStorage.getItem("UID");
     console.log(userUID);
     const auth = getAuth();
@@ -412,8 +415,8 @@ async function createLobby() {
     }).catch((error) => {
         console.log("error  " + error)
     });
-
-
+    
+}
 
 }
 function fb_write(_path, _label, _information) {
@@ -460,6 +463,7 @@ async function deleteLobby() {
     remove(dbReference)
 }
 async function joinLobby() {
+    if(onceCreate == 0) {
     console.log("function should be running");
     userUID = sessionStorage.getItem("UID");
     console.log("This is your UID " + userUID);
@@ -509,4 +513,4 @@ async function joinLobby() {
 
 
 }
-
+}
