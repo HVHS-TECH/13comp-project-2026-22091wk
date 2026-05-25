@@ -261,9 +261,6 @@ function fb_read_sortedFL() {
     });
 }
 
-
-
-
 function fb_read_sortedCG() {
     let sortKey = "Score";
     const dbReference = query(ref(fb_gamedb, "Games/CoinGame/Users"), orderByChild(sortKey), limitToFirst(3));
@@ -344,6 +341,13 @@ function fb_updateInformationRegistrationCG() {
 
 
 }
+function fb_listener(_path) {
+    const dbReference= ref(fb_gamedb, _path);
+    onValue(dbReference, (snapshot) => {
+        let fb_data = snapshot.val();
+        console.log("the listener is listening");
+    }) 
+}
 /**************************************************************/
 // First GTN Functionstest
 /**************************************************************/
@@ -362,7 +366,7 @@ async function getInfo() {
         let player2 = fb_data.player2
         console.log(player2);
         if(player2 == "NONE") {
-            const path = "Games/guessTheNumber/lobbies/" + joinCodeEntered
+            const path = "Games/guessTheNumber/lobbies/" + joinCodeEntered;
             console.log(path)
             const player2Image = sessionStorage.getItem("userProfilePicture");
             fb_update(path, "player2", userUID );
@@ -411,7 +415,8 @@ async function createLobby() {
         console.log("very successful");
         setHost();
         document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
-        
+        const path = "Games/guessTheNumber/lobbies/" + joinCodeEntered;
+        fb_listener(path);
     }).catch((error) => {
         console.log("error  " + error)
     });

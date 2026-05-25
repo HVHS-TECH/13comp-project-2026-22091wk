@@ -121,11 +121,6 @@ function playState() {
             once = 1;
         }
         home();
-
-
-
-
-
     }
 }
 function gameStateChanger1() {
@@ -179,9 +174,8 @@ function spawnDefaultProfilePicture() {
 
     } else if (once2 == 1) {
         // profilePicture.remove()
-        console.log("it has been deleted")
+        console.log("it has been deleted");
     }
-
 }
 // function spawnProfilePicture() {
 //  profilePicture.remove()
