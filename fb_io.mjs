@@ -343,10 +343,10 @@ function fb_updateInformationRegistrationCG() {
 }
 function fb_listener(_path) {
     const dbReference= ref(fb_gamedb, _path);
-    onValue(dbReference, (snapshot) => {
-        let fb_data = snapshot.val();
-        console.log("the listener is listening");
-    }) 
+    function andThen(snapshot) {
+        pressedReady(snapshot.val())
+    }
+    onValue(dbReference, andThen)
 }
 /**************************************************************/
 // First GTN Functionstest
@@ -430,7 +430,7 @@ function fb_write(_path, _label, _information) {
     set(dbReference, { [_label]: _information}).then(() => {
         console.log("very successful");
         setHost();
-        document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
+        
 
     }).catch((error) => {
         console.log("error  " + error)
@@ -442,7 +442,7 @@ function fb_update(_path, _label, _information) {
     update(dbReference, { [_label]: _information}).then(() => {
         console.log("very successful");
         setHost();
-        document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
+        
 
     }).catch((error) => {
         console.log("error  " + error)
@@ -518,4 +518,9 @@ async function joinLobby() {
 
 
 }
+}
+function pressedReady(snapshot) {
+    if(snapshot.player2 !== "NONE") {
+        console.log("yes it is detecting a change");
+    } 
 }
