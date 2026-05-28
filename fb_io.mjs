@@ -341,10 +341,10 @@ function fb_updateInformationRegistrationCG() {
 
 
 }
-function fb_listener(_path) {
+function fb_listener(_path, _function) {
     const dbReference= ref(fb_gamedb, _path);
     function andThen(snapshot) {
-        pressedReady(snapshot.val())
+        _function(snapshot.val())
     }
     onValue(dbReference, andThen)
 }
@@ -415,8 +415,9 @@ async function createLobby() {
         console.log("very successful");
         setHost();
         document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
-        const path = "Games/guessTheNumber/lobbies/" + joinCodeEntered;
-        fb_listener(path);
+        console.log(lobbyID,"Games/guessTheNumber/lobbies/" + lobbyID +"/")
+        const path = "Games/guessTheNumber/lobbies/" + lobbyID +"/";
+        fb_listener(path, pressedReady);
     }).catch((error) => {
         console.log("error  " + error)
     });
@@ -475,7 +476,6 @@ async function joinLobby() {
     joinCodeEntered = document.getElementById("joinCode").value
     console.log(joinCodeEntered)
     getInfo();
-
     // const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
     // get(dbReference1).then((snapshot) => {
     //     let fb_data = snapshot.val();
@@ -520,7 +520,7 @@ async function joinLobby() {
 }
 }
 function pressedReady(snapshot) {
-    if(snapshot.player2 !== "NONE") {
+     if(snapshot.player2 !== "NONE")
         console.log("yes it is detecting a change");
-    } 
-}
+        
+     }  
