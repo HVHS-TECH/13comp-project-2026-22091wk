@@ -54,21 +54,11 @@ function setup() {
         UID = sessionStorage.getItem("UID");
         userName = sessionStorage.getItem("userName");
 
-        if (UID == null) {
-            window.location.replace("../registration/registration.html");
-        }
-
-
-
-
-
-
+        // if (UID == null) {
+        //     window.location.replace("../registration/registration.html");
+        // }
     }
     else if (gameState == "play") {
-
-
-
-
     }
     else if (gameState == "lose") {
     }
