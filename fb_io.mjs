@@ -12,6 +12,7 @@ let lobbyID;
 let lobbyIDCreate1 = 0
 let joinCodeEntered;
 let onceCreate = 0;
+let gameStarted = false;
 function preload() {
     startText = loadImage('assets/start_image.png');
     spaceshipModel = loadImage('assets/spaceshipImage.gif')
@@ -24,23 +25,7 @@ function preload() {
 
 }
 
-async function fb_readRecordRegester() {
-    const dbReference = ref(fb_gamedb, "details/users/" + "uibqVdlpfoStP3AgTQGPFutORmm2");
 
-    get(dbReference).then((snapshot) => {
-        var fb_data = snapshot.val();
-        if (fb_data != null) {
-            //success
-            console.log("THIS IS Data: ", fb_data);
-            return (fb_data.UID)
-        } else {
-            // no record found
-            console.log("no record found -read")
-        }
-    }).catch((error) => {
-        console.log("error:  " + error);
-    });
-}
 /**************************************************************/
 // Importing all external constants & functions here
 /**************************************************************/
@@ -58,8 +43,8 @@ import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, 
 // Exporting functions to be used in main.mjs
 /**************************************************************/
 export {
-    fb_initialise, fb_authenticate, fb_start, fb_writeFarLands, fb_writeCoinGame, fb_read_sortedFL, fb_read_sortedCG, fb_updateInformationRegistrationFL, fb_updateInformationRegistrationCG,
-    fb_updateInformationRegistrationAgeFL, fb_writeAuth, checkUID, fb_readRecordRegester,
+    fb_initialise, fb_authenticate, fb_start, fb_writeFarLands, fb_writeCoinGame, fb_read_sortedFL, fb_read_sortedCG, createProfileFL, createProfileCG,
+    infoRegistration, fb_writeAuth, checkUID,
 
     //Guess The Number Export
     createLobby, joinLobby
@@ -90,14 +75,14 @@ function fb_initialise() {
 
 }
 function checkUID() {
+    userUID = sessionStorage.getItem("UID");
     if (userUID == null) {
         window.location.replace("../registration/registration.html");
+
     }
     console.log("YES IT IS RUNNING");
 }
 async function fb_authenticate() {
-    sessionStorage.setItem("UID", userUID);
-    console.log("working function")
     const AUTH = getAuth();
     const PROVIDER = new GoogleAuthProvider();
     // The following makes Google ask the user to select the account
@@ -107,7 +92,6 @@ async function fb_authenticate() {
 
     // Create a popup window to sign in
     signInWithPopup(AUTH, PROVIDER).then((result) => {
-        //document.getElementById("p_fbAuthenticate").innerHTML = "Authenticated";
         console.log("photo ", result.user.photoURL);
         console.log("email ", result.user.email);
         console.log("display name ", result.user.displayName);
@@ -115,40 +99,20 @@ async function fb_authenticate() {
         userUID = result.user.uid;
         userDisplayName = result.user.displayName;
         userProfilePicture = result.user.photoURL;
+        sessionStorage.setItem("UID", userUID);
         console.log(userUID)
         const path = "details/users/" + userUID;
-        const returnData = "fb_data.UID";
-        const returnedUID = fb_readRecordRegester();
 
-        function compareUID() {
-            if (returnedUID == userUID) {
-                console.log("yes is", userUID)
+        const dbReference = ref(fb_gamedb, path);
+        get(dbReference).then((snapshot) => {
+            if (snapshot.exists()) {
                 window.location.replace("../index.html");
+                console.log("u already created an account")
+            } else {
+                console.log("go sign up buddy")
+                fb_writeAuth();
             }
-        }
-        setTimeout(() => {
-            console.log("This runs after 2 seconds");
-            console.log(returnedUID, "this is your returned uid");
-
-
-            //  const userEmail = result.user.email;
-
-            sessionStorage.setItem("UID", userUID);
-            // sessionStorage.setItem("userDisplayName", userDisplayName);
-            sessionStorage.setItem("userProfilePicture", userProfilePicture);
-            console.log(userUID);
-
-            compareUID();
-
-
-            console.log(AUTH);
-
-        }, 5000);
-
-
-
-
-
+        })
     }).catch((error) => {
         console.log("error authenticating: " + error);
         // document.getElementById("p_fbAuthenticate").innerHTML = "Failled Authenticating";
@@ -156,7 +120,6 @@ async function fb_authenticate() {
 
 }
 function fb_writeAuth() {
-    userUID = sessionStorage.getItem("UID");
     console.log(userUID);
     const auth = getAuth();
     auth.onAuthStateChanged(user => {
@@ -171,6 +134,7 @@ function fb_writeAuth() {
 
     update(dbReference, { UID: userUID, userDisplayName: userDisplayName, userProfilePicture: userProfilePicture }).then(() => {
         console.log("update very successful");
+
 
     }).catch((error) => {
         console.log("error  " + error)
@@ -227,8 +191,6 @@ function fb_writeFarLands() {
 
     //    });
 }
-
-
 function fb_writeCoinGame() {
     let score;
     score = sessionStorage.getItem("score");
@@ -333,8 +295,7 @@ function fb_read_sortedCG() {
 
 
 }
-function fb_updateInformationRegistrationFL() {
-    const age = sessionStorage.getItem("age")
+function createProfileFL() {
     const name = sessionStorage.getItem("name")
     const dbReference = ref(fb_gamedb, "Games/FarLands/Users/" + userUID);
 
@@ -349,8 +310,7 @@ function fb_updateInformationRegistrationFL() {
 
 
 }
-function fb_updateInformationRegistrationAgeFL() {
-    fb_writeAuth();
+function infoRegistration() {
     const dbReference = ref(fb_gamedb, "details/users/" + userUID);
     let age = sessionStorage.getItem("age")
 
@@ -364,8 +324,7 @@ function fb_updateInformationRegistrationAgeFL() {
     });
 }
 
-function fb_updateInformationRegistrationCG() {
-    const age = sessionStorage.getItem("age")
+function createProfileCG() {
     const name = sessionStorage.getItem("name")
     const dbReference = ref(fb_gamedb, "Games/CoinGame/Users/" + userUID);
 
@@ -456,7 +415,7 @@ async function createLobby() {
             document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
             console.log(lobbyID, "Games/guessTheNumber/lobbies/" + lobbyID + "/")
             const path = "Games/guessTheNumber/lobbies/" + lobbyID + "/";
-            fb_listener(path, pressedReady);
+            fb_listener(path, startGame);
         }).catch((error) => {
             console.log("error  " + error)
         });
@@ -579,8 +538,19 @@ async function joinLobby() {
 
     }
 }
-function pressedReady(snapshot) {
-    if (snapshot.player2 !== "NONE")
-        console.log("yes it is detecting a change");
+function startGame(snapshot) {
 
-}  
+    const dbReference = ref(
+        fb_gamedb,
+        "Games/guessTheNumber/lobbies/" + snapshot.lobby
+    );
+    if(snapshot.player2 !== "NONE" && gameStarted == false)
+        gameStarted = true;
+    update(dbReference, { active: "YES", Number: Math.ceil(Math.random() * 100), Turn: snapshot.player1, Winner: "NONE", }).then(() => {
+        console.log("game started");
+        
+
+    }).catch((error) => {
+        console.log("error  " + error)
+    });
+}

@@ -2,8 +2,8 @@
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
-import { fb_start, fb_initialise, fb_authenticate, fb_writeFarLands, fb_writeCoinGame,  fb_read_sortedFL, fb_read_sortedCG, fb_updateInformationRegistrationFL, fb_updateInformationRegistrationCG,
-    fb_updateInformationRegistrationAgeFL, fb_writeAuth, createLobby, joinLobby, checkUID, fb_readRecordRegester
+import { fb_start, fb_initialise, fb_authenticate, fb_writeFarLands, fb_writeCoinGame,  fb_read_sortedFL, fb_read_sortedCG, createProfileFL, createProfileCG,
+    infoRegistration, fb_writeAuth, createLobby, joinLobby, checkUID, 
  }
     from './fb_io.mjs';
 
@@ -13,16 +13,16 @@ window.fb_writeFarLands = fb_writeFarLands;
 window.fb_writeCoinGame = fb_writeCoinGame;
 window.fb_read_sorted = fb_read_sortedFL;
 window.fb_read_sorted = fb_read_sortedCG;
-window.fb_updateInformationRegistrationFL = fb_updateInformationRegistrationFL;
-window.fb_updateInformationRegistrationCG = fb_updateInformationRegistrationCG;
-window.fb_updateInformationRegistrationAgeFL = fb_updateInformationRegistrationAgeFL;
+window.createProfileFL = createProfileFL;
+window.createProfileCG = createProfileCG;
+window.infoRegistration = infoRegistration;
 window.fb_writeAuth = fb_writeAuth;
 window.createLobby = createLobby;
 window.joinLobby=joinLobby;
 //window.fb_initialise = fb_initialise;
 window.fb_authenticate = fb_authenticate;
 window.checkUID = checkUID;
-window.fb_readRecordRegester = fb_readRecordRegester;
+
 
 /*window.fb_onAuthStateChanged = fb_onAuthStateChanged;
 window.fb_signOut = fb_signOut;
