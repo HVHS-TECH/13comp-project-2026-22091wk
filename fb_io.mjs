@@ -24,7 +24,23 @@ function preload() {
 
 }
 
+async function fb_readRecordRegester() {
+    const dbReference = ref(fb_gamedb, "details/users/" + "uibqVdlpfoStP3AgTQGPFutORmm2");
 
+    get(dbReference).then((snapshot) => {
+        var fb_data = snapshot.val();
+        if (fb_data != null) {
+            //success
+            console.log("THIS IS Data: ", fb_data);
+            return (fb_data.UID)
+        } else {
+            // no record found
+            console.log("no record found -read")
+        }
+    }).catch((error) => {
+        console.log("error:  " + error);
+    });
+}
 /**************************************************************/
 // Importing all external constants & functions here
 /**************************************************************/
@@ -43,7 +59,7 @@ import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, 
 /**************************************************************/
 export {
     fb_initialise, fb_authenticate, fb_start, fb_writeFarLands, fb_writeCoinGame, fb_read_sortedFL, fb_read_sortedCG, fb_updateInformationRegistrationFL, fb_updateInformationRegistrationCG,
-    fb_updateInformationRegistrationAgeFL, fb_writeAuth, checkUID,
+    fb_updateInformationRegistrationAgeFL, fb_writeAuth, checkUID, fb_readRecordRegester,
 
     //Guess The Number Export
     createLobby, joinLobby
@@ -79,7 +95,7 @@ function checkUID() {
     }
     console.log("YES IT IS RUNNING");
 }
-function fb_authenticate() {
+async function fb_authenticate() {
     sessionStorage.setItem("UID", userUID);
     console.log("working function")
     const AUTH = getAuth();
@@ -92,36 +108,43 @@ function fb_authenticate() {
     // Create a popup window to sign in
     signInWithPopup(AUTH, PROVIDER).then((result) => {
         //document.getElementById("p_fbAuthenticate").innerHTML = "Authenticated";
-        console.log(result.user.photoURL);
-        console.log(result.user.email);
-        console.log(result.user.displayName);
-        console.log(result.user.uid);
+        console.log("photo ", result.user.photoURL);
+        console.log("email ", result.user.email);
+        console.log("display name ", result.user.displayName);
+        console.log("uid ", result.user.uid);
         userUID = result.user.uid;
         userDisplayName = result.user.displayName;
         userProfilePicture = result.user.photoURL;
         console.log(userUID)
-
-
-        //  const userEmail = result.user.email;
-
-        sessionStorage.setItem("UID", userUID);
-        // sessionStorage.setItem("userDisplayName", userDisplayName);
-        sessionStorage.setItem("userProfilePicture", userProfilePicture);
+        const path = "details/users/" + userUID;
+        const returnData = "fb_data.UID";
+        const returnedUID = fb_readRecordRegester();
 
         function compareUID() {
             if (returnedUID == userUID) {
-                console.log("yes is")
+                console.log("yes is", userUID)
                 window.location.replace("../index.html");
             }
         }
-        const path = "details/users/" + userUID
-        const returnData = "fb_data.userUID";
-        const returnedUID = fb_readRecord(path, returnData)
-        compareUID();
+        setTimeout(() => {
+            console.log("This runs after 2 seconds");
+            console.log(returnedUID, "this is your returned uid");
 
 
-        console.log(AUTH);
-        fb_writeAuth();
+            //  const userEmail = result.user.email;
+
+            sessionStorage.setItem("UID", userUID);
+            // sessionStorage.setItem("userDisplayName", userDisplayName);
+            sessionStorage.setItem("userProfilePicture", userProfilePicture);
+            console.log(userUID);
+
+            compareUID();
+
+
+            console.log(AUTH);
+
+        }, 5000);
+
 
 
 
@@ -148,7 +171,7 @@ function fb_writeAuth() {
 
     update(dbReference, { UID: userUID, userDisplayName: userDisplayName, userProfilePicture: userProfilePicture }).then(() => {
         console.log("update very successful");
-        
+
     }).catch((error) => {
         console.log("error  " + error)
     });
@@ -327,6 +350,7 @@ function fb_updateInformationRegistrationFL() {
 
 }
 function fb_updateInformationRegistrationAgeFL() {
+    fb_writeAuth();
     const dbReference = ref(fb_gamedb, "details/users/" + userUID);
     let age = sessionStorage.getItem("age")
 
@@ -472,14 +496,19 @@ function fb_readRecord(_path, _return) {
         if (fb_data != null) {
             //success
             console.log("Data: ", fb_data);
-            return (_return)
+            console.log();
+            const returingData = _return;
+            console.log(returnData);
+            return (returingData)
         } else {
             // no record found
+            console.log("no record found -read")
         }
     }).catch((error) => {
         console.log("error:  " + error);
     });
 }
+
 async function setHost() {
     const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + lobbyID);
     get(dbReference1).then((snapshot) => {
