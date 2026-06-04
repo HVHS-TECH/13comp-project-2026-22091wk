@@ -23,33 +23,26 @@
   <section id="lobbyArea" style="display: block">
   <header class="container">
   </header>
-  <button onclick="createLobby(); showImageOnLoadHost();">Create lobby</button>
+  <button onclick="createLobby();">Create lobby</button>
   <h2 id="waiting"> </h2>
 
   <!-- spawnProfilePicture(); -->
     <section id="joinSection">
     <label for="joinCode">Enter the join code:</label>
     <input type="number" id="joinCode" name="joinCode" required />  
-    <button onclick="joinLobby(); showImageOnLoadPlayer2();">join lobby</button>
-    <button onclick="spawnProfilePicture();">testing sprite</button>
+    <button onclick="joinLobby();">join lobby</button>
   </section>
   <section>
     <p1 id="hostWaiting">hello</p1>
   </section>
   <section>
-    <p1 id="displayJoinCode"> </p1>
-  </section>
-  <section class="profiles">
-    <img src="../assets/defaultProfilePicture.png" alt="hostProfile" id="hostProfile">
-    <img src="../assets/defaultProfilePicture.png" alt="player2Profile" id="player2Profile">
-  </section>
-  <section>
-    <h4>VS</p>
+    <p1 id="displayJoinCode"></p1>
   </section>
   </section>
 
 
-  <section id="gameArea" style="display: block;">
+  <section id="gameArea" style="display: none;">  
+    <h1 id="playerVsPlayer"></h1>
     <h2 id="playerTurn">hi</h2> 
     <label for="name">Guess here</label>
     <input type="number" id="guessInput" name="guessInput">

@@ -313,9 +313,10 @@ function createProfileFL() {
 function infoRegistration() {
     const dbReference = ref(fb_gamedb, "details/users/" + userUID);
     let age = sessionStorage.getItem("age")
+    const name = sessionStorage.getItem("name")
 
 
-    update(dbReference, { Age: Number(age) }).then(() => {
+    update(dbReference, { Age: Number(age), Name: name }).then(() => {
         console.log("update successful2");
 
 
@@ -354,7 +355,7 @@ function fb_listener(_path, _function) {
 /**************************************************************/
 
 async function getInfo() {
-
+    const name = sessionStorage.getItem("name")
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + joinCodeEntered);
     get(dbReference).then((snapshot) => {
         let fb_data = snapshot.val();
@@ -368,7 +369,8 @@ async function getInfo() {
                 console.log(path)
                 const player2Image = sessionStorage.getItem("userProfilePicture");
                 fb_update(path, "player2", userUID);
-                fb_update(path, "player2IMG", player2Image);
+                fb_update(path, "playerName2", name);
+                document.getElementById("gameArea").style.display="block"
             }
 
         } else {
@@ -402,14 +404,13 @@ async function createLobby() {
         auth.onAuthStateChanged(user => {
             if (user) {
                 console.log("Signed in as:", user.uid);
-                sessionStorage.setItem("hostProfile", user.photoURL);
             } else {
                 console.log("Not signed in");
             }
         });
+        const name = sessionStorage.getItem("name")
         const dbReference = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + lobbyID);
-        const player1Image = sessionStorage.getItem("userProfilePicture");
-        set(dbReference, { Guess: "NONE", active: "NO", Turn: "NONE", player2: "NONE", player1: userUID, player1IMG: player1Image, player2IMG: "NONE", lobby: lobbyID }).then(() => {
+        set(dbReference, { Guess: "NONE", active: "NO", Turn: "NONE", player2: "NONE", playerName2: "NONE", player1: userUID, playerName1: name, lobby: lobbyID }).then(() => {
             console.log("very successful");
             setHost();
             document.getElementById("displayJoinCode").innerHTML = "Lobby join code: " + lobbyID;
@@ -495,6 +496,7 @@ async function joinLobby() {
         joinCodeEntered = document.getElementById("joinCode").value
         console.log(joinCodeEntered)
         getInfo();
+        
         // const dbReference1 = ref(fb_gamedb, "Games/guessTheNumber/unActive/game/players");
         // get(dbReference1).then((snapshot) => {
         //     let fb_data = snapshot.val();
@@ -538,19 +540,20 @@ async function joinLobby() {
 
     }
 }
-function startGame(snapshot) {
+async function startGame(snapshot) {
 
     const dbReference = ref(
         fb_gamedb,
         "Games/guessTheNumber/lobbies/" + snapshot.lobby
     );
-    if(snapshot.player2 !== "NONE" && gameStarted == false)
+    if(snapshot.player2 !== "NONE" && gameStarted == false) {
         gameStarted = true;
-    update(dbReference, { active: "YES", Number: Math.ceil(Math.random() * 100), Turn: snapshot.player1, Winner: "NONE", }).then(() => {
+    await update(dbReference, { active: "YES", Number: Math.ceil(Math.random() * 100), Turn: snapshot.player1, Winner: "NONE", }).then( async () => {
         console.log("game started");
-        
-
+        document.getElementById("gameArea").style.display="block"
+        document.getElementById("playerVsPlayer").innerHTML =snapshot.playerName1 + " vs " + snapshot.playerName2;
     }).catch((error) => {
         console.log("error  " + error)
     });
+    }
 }

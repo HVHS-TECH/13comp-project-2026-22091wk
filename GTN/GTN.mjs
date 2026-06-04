@@ -64,23 +64,6 @@ function setup() {
     }
 }
 
-function showImageOnLoadHost() {
-    if (onceCreate == 0) {
-        const userProfilePicture = sessionStorage.getItem("userProfilePicture")
-        document.getElementById("hostProfile").src = userProfilePicture
-        document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
-        onceCreate = 1;
-    }
-}
-function showImageOnLoadPlayer2() {
-    if (onceCreate == 0) {
-        const userProfilePicture = sessionStorage.getItem("userProfilePicture")
-        document.getElementById("player2Profile").src = userProfilePicture
-        document.getElementById("hostWaiting").innerHTML = "Ready Up!";
-        onceCreate = 1;
-    }
-}
-
 /*******************************************************/
 // draw()
 /*******************************************************/
@@ -153,7 +136,7 @@ function spawnDefaultProfilePicture() {
         // profilePicture.image = defaultprofile;
         // profilePicture.image.resize(400, 400)
 
-        document.getElementById("hostWaiting").innerHTML = "Waiting for another player";
+        document.getElementById("hostWaiting").innerHTML = "Create or Join a Lobby";
         // hostGroup.add(profilePicture)
 
         // profilePicture2 = new Sprite(windowWidth / 2 + 350, windowHeight / 2 - 200, 170, 'd');

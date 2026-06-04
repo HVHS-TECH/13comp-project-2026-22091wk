@@ -1,16 +1,6 @@
-.wating {
-    
-}
-.profiles {
-    margin-top: 250px;
-    margin-left:300px;
-}
-img {
-    margin-left:300px;
-}
-h4 {
-    margin-left:950px;
-}
+
 .gameArea {
     text-align: center;
+    margin-left:3000px;
+    display: none;
 }
