@@ -20,33 +20,33 @@
 </head>
 
 <body onload="fb_start();setup();">
+
+  <!-- Only seen when game is inactive  -->
   <section id="lobbyArea" style="display: block">
-  <header class="container">
-  </header>
-  <button onclick="createLobby();">Create lobby</button>
-  <h2 id="waiting"> </h2>
-
-  <!-- spawnProfilePicture(); -->
+    <header class="container">
+    </header>
+    <button onclick="createLobby();">Create lobby</button>
+    <h2 id="waiting"> </h2>
     <section id="joinSection">
-    <label for="joinCode">Enter the join code:</label>
-    <input type="number" id="joinCode" name="joinCode" required />  
-    <button onclick="joinLobby();">join lobby</button>
-  </section>
-  <section>
-    <p1 id="hostWaiting">hello</p1>
-  </section>
-  <section>
-    <p1 id="displayJoinCode"></p1>
-  </section>
+      <label for="joinCode">Enter the join code:</label>
+      <input type="number" id="joinCode" name="joinCode" required />
+      <button onclick="joinLobby();">join lobby</button>
+    </section>
+    <section>
+      <p1 id="hostWaiting">hello</p1>
+    </section>
+    <section>
+      <p1 id="displayJoinCode"></p1>
+    </section>
   </section>
 
-
-  <section id="gameArea" style="display: none;">  
+  <!-- Only seen when game is active  -->
+  <section id="gameArea" style="display: none;">
     <h1 id="playerVsPlayer"></h1>
-    <h2 id="playerTurn">hi</h2> 
+    <h2 id="playerTurn"></h2>
     <label for="name">Guess here</label>
     <input type="number" id="guessInput" name="guessInput">
-    <button onclick="" id="submitGuess">SUBMIT GUESS</button>
+    <button onclick="guess();" id="submitGuess">SUBMIT GUESS</button>
     <h5 id="feedback">higher/lower</h3>
   </section>
 
