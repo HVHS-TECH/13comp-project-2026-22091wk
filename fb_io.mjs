@@ -511,9 +511,11 @@ async function gamePlayer1(lobbyDataObject) {
         }
 
     }
-    if (lobbyDataObject.guess > lobbyDataObject.Number) {
+    if (lobbyDataObject.Guess > lobbyDataObject.Number) {
+        console.log("works1");
         document.getElementById("feedback").innerHTML = "The number is lower than " + lobbyDataObject.Guess;
-    } else if (lobbyDataObject.guess < lobbyDataObject.Number) {
+    } else if (lobbyDataObject.Guess < lobbyDataObject.Number) {
+        console.log("works2");
         document.getElementById("feedback").innerHTML = "The number is higher than " + lobbyDataObject.Guess;
     }
 }
@@ -559,6 +561,13 @@ async function gamePlayer2(lobbyDataObject) {
             myTurn = false;
         }
 
+    }
+    if (lobbyDataObject.Guess > lobbyDataObject.Number) {
+        console.log("works1");
+        document.getElementById("feedback").innerHTML = "The number is lower than " + lobbyDataObject.Guess;
+    } else if (lobbyDataObject.Guess < lobbyDataObject.Number) {
+        console.log("works2");
+        document.getElementById("feedback").innerHTML = "The number is higher than " + lobbyDataObject.Guess;
     }
 }
 async function guess() {
