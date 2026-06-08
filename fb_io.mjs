@@ -511,6 +511,11 @@ async function gamePlayer1(lobbyDataObject) {
         }
 
     }
+    if (lobbyDataObject.guess > lobbyDataObject.Number) {
+        document.getElementById("feedback").innerHTML = "The number is lower than " + lobbyDataObject.Guess;
+    } else if (lobbyDataObject.guess < lobbyDataObject.Number) {
+        document.getElementById("feedback").innerHTML = "The number is higher than " + lobbyDataObject.Guess;
+    }
 }
 async function gamePlayer2(lobbyDataObject) {
 
