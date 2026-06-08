@@ -150,6 +150,7 @@ function spawnDefaultProfilePicture() {
         console.log("it has been deleted");
     }
 }
+
 // function spawnProfilePicture() {
 //  profilePicture.remove()
 //  console.log("removed")

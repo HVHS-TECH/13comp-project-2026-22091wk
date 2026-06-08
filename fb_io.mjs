@@ -43,7 +43,7 @@ import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, 
 // Exporting functions to be used in main.mjs
 /**************************************************************/
 export {
-    fb_initialise, fb_authenticate, fb_start, fb_writeFarLands, fb_writeCoinGame, fb_read_sortedFL, fb_read_sortedCG, createProfileFL, createProfileCG,
+    fb_initialise, fb_authenticate, fb_start, fb_writeFarLands, fb_writeCoinGame, fb_read_sortedFL, fb_read_sortedCG, createProfile,
     infoRegistration, fb_writeAuth, checkUID,
 
     //Guess The Number Export
@@ -294,11 +294,11 @@ function fb_read_sortedCG() {
 
 
 }
-function createProfileFL() {
+function createProfile() {
     const name = sessionStorage.getItem("name")
-    const dbReference = ref(fb_gamedb, "Games/FarLands/Users/" + userUID);
+    const dbReference = ref(fb_gamedb, "Leaderboard/" + userUID);
 
-    update(dbReference, { Name: name }).then(() => {
+    update(dbReference, { Name: name, flScore: 0, cgScore: 0, gtnWins: 0, gtnLosses: 0 }).then(() => {
         console.log("update successful");
 
 
@@ -380,6 +380,10 @@ async function fb_readRecord(_path, _returnlabel) {
         // no record found
         console.log("no record found -read")
     }
+}
+async function fb_listenerOff(_path) {
+    const dbReference = ref(fb_gamedb, _path)
+    off(dbReference);
 }
 /**************************************************************/
 // First GTN Functionstest
@@ -493,12 +497,13 @@ async function gamePlayer1(lobbyDataObject) {
             console.log(lobbyDataObject);
         }
         if (lobbyDataObject.Guess == lobbyDataObject.Number && lobbyDataObject.player1 == lobbyDataObject.Turn) {
-            fb_update("Games/guessTheNumber/lobbies/", { Winner: lobbyDataObject.player1 });
+            fb_update("Games/guessTheNumber/lobbies/" + lobbyID, { Winner: lobbyDataObject.player1 });
             document.getElementById("playerVsPlayer").innerHTML = "YOU WIN";
             console.log("yep the 1rd if line is running" + lobbyDataObject.Turn);
             myTurn = false;
 
         } else if (lobbyDataObject.Guess == lobbyDataObject.Number && lobbyDataObject.player2 == lobbyDataObject.Turn) {
+            fb_listenerOff("Games/guessTheNumber/lobbies/" + lobbyID);
             document.getElementById("playerVsPlayer").innerHTML = "YOU LOSE";
             console.log("yep the 2rd if line is running" + lobbyDataObject.Turn);
             myTurn = false;
@@ -517,6 +522,11 @@ async function gamePlayer1(lobbyDataObject) {
     } else if (lobbyDataObject.Guess < lobbyDataObject.Number) {
         console.log("works2");
         document.getElementById("feedback").innerHTML = "The number is higher than " + lobbyDataObject.Guess;
+    }
+    if(lobbyDataObject.Winner == lobbyDataObject.player1) {
+        let wins = await fb_readRecord("Leaderboard/" + userUID, Wins)
+        wins = wins + 1;
+        await fb_update("Leaderboard/" + userUID, {"Wins": wins});
     }
 }
 async function gamePlayer2(lobbyDataObject) {
@@ -544,7 +554,7 @@ async function gamePlayer2(lobbyDataObject) {
             console.log(lobbyDataObject);
         }
         if (lobbyDataObject.Guess == lobbyDataObject.Number && lobbyDataObject.player2 == lobbyDataObject.Turn) {
-            fb_update("Games/guessTheNumber/lobbies/", { Winner: lobbyDataObject.player2 });
+            fb_update("Games/guessTheNumber/lobbies/" + lobbyID, { Winner: lobbyDataObject.player2 });
             document.getElementById("playerVsPlayer").innerHTML = "YOU WIN";
             console.log("yep the 1rd if line is running" + lobbyDataObject.Turn);
             myTurn = false;
@@ -568,6 +578,11 @@ async function gamePlayer2(lobbyDataObject) {
     } else if (lobbyDataObject.Guess < lobbyDataObject.Number) {
         console.log("works2");
         document.getElementById("feedback").innerHTML = "The number is higher than " + lobbyDataObject.Guess;
+    }
+    if(lobbyDataObject.Winner == lobbyDataObject.player2) {
+        let wins = await fb_readRecord("Leaderboard/" + userUID, gtnWins)
+        wins = wins + 1;
+        await fb_update("Leaderboard/" + userUID, {"gtnWins": wins});
     }
 }
 async function guess() {
