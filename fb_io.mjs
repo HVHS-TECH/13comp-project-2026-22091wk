@@ -493,8 +493,6 @@ async function gamePlayer1(lobbyDataObject) {
             document.getElementById("playerTurn").innerHTML = "It is your turn";
             myTurn = true;
             console.log("myTurn " + myTurn)
-            console.log("guess " + lobbyDataObject.Guess + " number " + lobbyDataObject.Number + " player1 " + lobbyDataObject.player1 + " player2 " + lobbyDataObject.player2 + " turn " + lobbyDataObject.Turn);
-            console.log(lobbyDataObject);
         }
         if (lobbyDataObject.Guess == lobbyDataObject.Number && lobbyDataObject.player1 == lobbyDataObject.Turn) {
             fb_update("Games/guessTheNumber/lobbies/" + lobbyID, { Winner: lobbyDataObject.player1 });
@@ -550,8 +548,6 @@ async function gamePlayer2(lobbyDataObject) {
             document.getElementById("playerTurn").innerHTML = "It is your turn";
             myTurn = true;
             console.log("myTurn " + myTurn)
-            console.log("guess " + lobbyDataObject.Guess + " number " + lobbyDataObject.Number + " player1 " + lobbyDataObject.player1 + " player2 " + lobbyDataObject.player2 + " turn " + lobbyDataObject.Turn);
-            console.log(lobbyDataObject);
         }
         if (lobbyDataObject.Guess == lobbyDataObject.Number && lobbyDataObject.player2 == lobbyDataObject.Turn) {
             fb_update("Games/guessTheNumber/lobbies/" + lobbyID, { Winner: lobbyDataObject.player2 });
