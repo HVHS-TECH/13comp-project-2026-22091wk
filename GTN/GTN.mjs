@@ -127,9 +127,7 @@ function gameStateChanger3() {
 }
 
 function spawnDefaultProfilePicture() {
-
     console.log("this is running")
-
     if (once2 == 0) {
         once2 = 1;
         // profilePicture = new Sprite(windowWidth / 2 - 350, windowHeight / 2 - 200, 170, 'd');

@@ -22,7 +22,8 @@
 <body onload="fb_start();setup();">
 
   <!-- Only seen when game is inactive  -->
-  <section id="lobbyArea" style="display: block">
+   
+  <section class="lobbyArea" id="lobbyArea" style="display: block">
     <header class="container">
     </header>
     <button onclick="createLobby();">Create lobby</button>
@@ -41,7 +42,7 @@
   </section>
 
   <!-- Only seen when game is active  -->
-  <section id="gameArea" style="display: none;">
+  <section class="gameArea" id="gameArea" style="display: none;">
     <h1 id="playerVsPlayer"></h1>
     <h2 id="playerTurn"></h2>
     <label for="name">Guess here</label>

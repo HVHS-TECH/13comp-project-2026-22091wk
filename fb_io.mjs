@@ -440,7 +440,6 @@ async function joinLobby() {
         get(dbReference).then(async (snapshot) => {
             let fb_data = snapshot.val();
             if (fb_data != null) {
-                console.log("Data: ", fb_data);
                 let player2 = fb_data.player2
                 console.log(player2);
 
@@ -473,7 +472,7 @@ async function gamePlayer1(lobbyDataObject) {
         console.log(lobbyDataObject.player2);
         console.log(lobbyDataObject.playerName2);
         gameStarted = true;
-        await update(dbReference, { active: "YES", Number: Math.ceil(Math.random() * 100), Turn: lobbyDataObject.player1, Winner: "NONE", }).then(async () => {
+        await update(dbReference, { active: "yep", Number: Math.ceil(Math.random() * 100), Turn: lobbyDataObject.player1, Winner: "NONE", }).then(async () => {
             sessionStorage.setItem("guess", "NONE");
             console.log("game started");
             document.getElementById("gameArea").style.display = "block";
@@ -584,11 +583,9 @@ async function gamePlayer2(lobbyDataObject) {
 async function guess() {
     if (myTurn == true) {
         let guess = document.getElementById("guessInput").value;
-        guess = Number(guess)
+        guess = Number(guess);
         if (guess > 0 && guess < 100) {
             fb_update("Games/guessTheNumber/lobbies/" + lobbyID, { "Guess": guess, "GuessedBy": userUID })
-
-
         } else if (guess < 0) {
             document.getElementById("playerTurn").innerHTML = "guess a number more than 0 goofy💀"
         } else if (guess > 100) {
@@ -599,4 +596,5 @@ async function guess() {
         document.getElementById("playerTurn").innerHTML = "it is not your turn"
     }
 }
+
 

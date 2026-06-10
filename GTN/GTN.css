@@ -4,3 +4,13 @@
     margin-left:3000px;
     display: none;
 }
+body {
+    background:linear-gradient(to bottom right, rgb(101, 190, 60),rgb(54, 134, 240));
+    height: 100vh;
+}
+p {
+    border:30px;
+    margin:200px;
+    border-style: solid;
+    
+}
