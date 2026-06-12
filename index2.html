@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>The Project</title>
     <meta charset="UTF-8">
@@ -14,17 +15,17 @@
 
 
 <body onload="">
-  
-        <section>
+
+    <section>
         <div class="container">
             <div class="column">
                 <button onclick="fb_initialise()">initialise firebase</button>
-                
+
                 <button onclick="redirectRegistration()">register</button>
                 <p class="p_fbStatus">The username: <span id="readDataBaseName"> n/a</span></p>
             </div>
-        </section>
-        
+    </section>
+
     <input id="messageInput" placeholder="Type a message">
     <button onclick="saveMessage()">Save Message</button>
     <h3>Message Board</h3>
@@ -36,7 +37,7 @@
 
 
 
-            
+
     <script type="module" src="/main.mjs"></script>
     <script type="module" src="/landingPage.mjs"></script>
     <input type="text" id="dataInput" placeholder="What u want ur path to be?">
@@ -44,4 +45,5 @@
     <button onclick="submitData()">Submit</button>
 
 </body>
+
 </html>

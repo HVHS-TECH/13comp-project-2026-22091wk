@@ -520,10 +520,10 @@ async function gamePlayer1(lobbyDataObject) {
         console.log("works2");
         document.getElementById("feedback").innerHTML = "The number is higher than " + lobbyDataObject.Guess;
     }
-    if(lobbyDataObject.Winner == lobbyDataObject.player1) {
+    if (lobbyDataObject.Winner == lobbyDataObject.player1) {
         let wins = await fb_readRecord("Leaderboard/" + userUID, Wins)
         wins = wins + 1;
-        await fb_update("Leaderboard/" + userUID, {"Wins": wins});
+        await fb_update("Leaderboard/" + userUID, { "Wins": wins });
     }
 }
 async function gamePlayer2(lobbyDataObject) {
@@ -574,10 +574,10 @@ async function gamePlayer2(lobbyDataObject) {
         console.log("works2");
         document.getElementById("feedback").innerHTML = "The number is higher than " + lobbyDataObject.Guess;
     }
-    if(lobbyDataObject.Winner == lobbyDataObject.player2) {
+    if (lobbyDataObject.Winner == lobbyDataObject.player2) {
         let wins = await fb_readRecord("Leaderboard/" + userUID, gtnWins)
         wins = wins + 1;
-        await fb_update("Leaderboard/" + userUID, {"gtnWins": wins});
+        await fb_update("Leaderboard/" + userUID, { "gtnWins": wins });
     }
 }
 async function guess() {

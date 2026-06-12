@@ -1,16 +1,26 @@
-
-.gameArea {
+.lobbyArea {
+    background-color: antiquewhite;
+    margin-left: 35vw;
     text-align: center;
-    margin-left:3000px;
-    display: none;
+    margin-top: 50px;
+    border-radius: 9px solid;
+    border-style: solid;
+    width: fit-content;
+    padding: 10px;
+    font-style: italic;
 }
+
 body {
-    background:linear-gradient(to bottom right, rgb(101, 190, 60),rgb(54, 134, 240));
+    background: linear-gradient(to bottom right, rgb(101, 190, 60), rgb(54, 134, 240));
     height: 100vh;
 }
-p {
-    border:30px;
-    margin:200px;
-    border-style: solid;
-    
+
+button {
+    background-color: rgb(73, 197, 255);
+    border: none;
+
+}
+
+button:hover {
+    background-color: rgb(51, 190, 255);
 }

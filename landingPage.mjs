@@ -1,16 +1,17 @@
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     var messageSpace = document.getElementById("welcomeMessage");
     messageSpace.innerHTML = "You've connected to the JavaScript!";
     console.log("JavaScript is connected!");
-    
+
 })
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
 
-import { fb_initialise, fb_readRecord, submitData, refreshMessages, changeHeading, saveMessage, showMessages, redirectRegistration //, fb_authenticate, fb_onAuthStateChanged, fb_signOut, fb_writeRecord, fb_readAll, fb_destroy, fb_updateRecord  
+import {
+    fb_initialise, fb_readRecord, submitData, refreshMessages, changeHeading, saveMessage, showMessages, redirectRegistration //, fb_authenticate, fb_onAuthStateChanged, fb_signOut, fb_writeRecord, fb_readAll, fb_destroy, fb_updateRecord  
 
-}   
+}
     from '/fb_io_Farlands.mjs';
 
 window.fb_initialise = fb_initialise;
