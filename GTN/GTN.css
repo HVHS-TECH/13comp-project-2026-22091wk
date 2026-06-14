@@ -1,6 +1,19 @@
 .lobbyArea {
     background-color: antiquewhite;
-    margin-left: 35vw;
+    margin-left: 39vw;
+    text-align: center;
+    margin-top: 50px;
+    border-radius: 9px solid;
+    border-style: solid;
+    width: fit-content;
+    padding: 10px;
+    font-style: italic;
+}
+
+.gameArea {
+    background-color: antiquewhite;
+    border-color: rgb(54, 134, 240);
+    margin-left: 39vw;
     text-align: center;
     margin-top: 50px;
     border-radius: 9px solid;
@@ -23,4 +36,33 @@ button {
 
 button:hover {
     background-color: rgb(51, 190, 255);
+}
+
+.leaderboard {
+    margin-top: 50vh;
+
+}
+
+.winnersLeaderboard {
+    background-color: antiquewhite;
+    border-style: solid;
+    margin-left: 10vw;
+    width: fit-content;
+    padding-right: 1vw;
+    font-style: monospace;
+}
+
+.losersLeaderboard {
+    background-color: antiquewhite;
+    margin-left: 60vw;
+    border-style: solid;
+    width: fit-content;
+    padding-right: 1vw;
+    font-style: monospace;
+}
+
+li {
+    margin-top: 30px;
+
+
 }

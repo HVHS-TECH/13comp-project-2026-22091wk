@@ -22,7 +22,7 @@
 <body onload="fb_start();setup();">
 
   <!-- Only seen when game is inactive  -->
-   
+
   <section class="lobbyArea" id="lobbyArea" style="display: block">
     <header class="container">
     </header>
@@ -49,6 +49,32 @@
     <input type="number" id="guessInput" name="guessInput">
     <button onclick="guess();" id="submitGuess">SUBMIT GUESS</button>
     <h5 id="feedback">higher/lower</h3>
+  </section>
+
+  <section class="leaderboard" id="leaderboard" style="display: flex;">
+    <div class="winnersLeaderboard">
+      <h1>Top Winners</h1>
+      <p1>bragging rights! You may be a goat</p1>
+      <ol>
+        <li id="W#1">N/A</li>
+        <li id="W#2">N/A</li>
+        <li id="W#3">N/A</li>
+        <li id="W#4">N/A</li>
+        <li id="W#5">N/A</li>
+      </ol>
+    </div>
+    <div class="losersLeaderboard">
+      <h1>Top LOSERS</h1>
+      <p1>well...</p1>
+      <ol>
+        <li id="L#1">N/A</li>
+        <li id="L#2">N/A</li>
+        <li id="L#3">N/A</li>
+        <li id="L#4">N/A</li>
+        <li id="L#5">N/A</li>
+      </ol>
+    </div>
+
   </section>
 
 
