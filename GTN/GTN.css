@@ -26,6 +26,7 @@
 body {
     background: linear-gradient(to bottom right, rgb(101, 190, 60), rgb(54, 134, 240));
     height: 100vh;
+    overflow: hidden;
 }
 
 button {
@@ -39,7 +40,7 @@ button:hover {
 }
 
 .leaderboard {
-    margin-top: 50vh;
+    margin-top: 20vh;
 
 }
 
