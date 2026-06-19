@@ -383,7 +383,9 @@ async function fb_readRecord(_path, _returnlabel) {
 }
 async function fb_listenerOff(_path) {
     const dbReference = ref(fb_gamedb, _path)
-    off(dbReference);
+    dbReference.off
+    // off(dbReference);
+    console.log("working off listener")
 }
 /**************************************************************/
 // First GTN Functionstest
@@ -494,17 +496,26 @@ async function gamePlayer1(lobbyDataObject) {
             console.log("myTurn " + myTurn)
         }
         if (lobbyDataObject.Guess == lobbyDataObject.Number && lobbyDataObject.player1 == lobbyDataObject.Turn) {
+            fb_listenerOff("Games/guessTheNumber/lobbies/" + lobbyID);
             fb_update("Games/guessTheNumber/lobbies/" + lobbyID, { Winner: lobbyDataObject.player1 });
             document.getElementById("playerVsPlayer").innerHTML = "YOU WIN";
             console.log("yep the 1rd if line is running" + lobbyDataObject.Turn);
             myTurn = false;
-
+            let wins = await fb_readRecord("Leaderboard/" + userUID, "gtnWins")
+            console.log(wins, " THESE ARE THE WINS ARE THEY ARE WORKING");
+            wins = wins + 1;
+            await fb_update("Leaderboard/" + userUID, { "gtnWins": wins });
+            
         } else if (lobbyDataObject.Guess == lobbyDataObject.Number && lobbyDataObject.player2 == lobbyDataObject.Turn) {
             fb_listenerOff("Games/guessTheNumber/lobbies/" + lobbyID);
             document.getElementById("playerVsPlayer").innerHTML = "YOU LOSE";
             console.log("yep the 2rd if line is running" + lobbyDataObject.Turn);
+            document.getElementById("feedback").innerHTML = lobbyDataObject.playerName2 + " has guessed " + lobbyDataObject.Number + " first and WINS";
             myTurn = false;
-
+            let losses = await fb_readRecord("Leaderboard/" + userUID, "gtnLosses")
+            console.log(losses, " THESE ARE THE WINS ARE THEY ARE WORKING");
+            losses = losses + 1;
+            await fb_update("Leaderboard/" + userUID, { "gtnLosses": losses });
         } else if (lobbyDataObject.player1 == lobbyDataObject.Turn && lobbyDataObject.Guess !== lobbyDataObject.Number && lobbyDataObject.GuessedBy == lobbyDataObject.player1) {
             fb_update("Games/guessTheNumber/lobbies/" + lobbyID, { Turn: lobbyDataObject.player2 });
             console.log("yep the 3rd if line is running" + lobbyDataObject.Turn);
@@ -520,11 +531,11 @@ async function gamePlayer1(lobbyDataObject) {
         console.log("works2");
         document.getElementById("feedback").innerHTML = "The number is higher than " + lobbyDataObject.Guess;
     }
-    if (lobbyDataObject.Winner == lobbyDataObject.player1) {
-        let wins = await fb_readRecord("Leaderboard/" + userUID, Wins)
-        wins = wins + 1;
-        await fb_update("Leaderboard/" + userUID, { "Wins": wins });
-    }
+    // if (lobbyDataObject.Winner == lobbyDataObject.player1) {
+    //     let wins = await fb_readRecord("Leaderboard/" + userUID, Wins)
+    //     wins = wins + 1;
+    //     await fb_update("Leaderboard/" + userUID, { "Wins": wins });
+    // }
 }
 async function gamePlayer2(lobbyDataObject) {
 
@@ -549,15 +560,25 @@ async function gamePlayer2(lobbyDataObject) {
             console.log("myTurn " + myTurn)
         }
         if (lobbyDataObject.Guess == lobbyDataObject.Number && lobbyDataObject.player2 == lobbyDataObject.Turn) {
+            fb_listenerOff("Games/guessTheNumber/lobbies/" + lobbyID);
             fb_update("Games/guessTheNumber/lobbies/" + lobbyID, { Winner: lobbyDataObject.player2 });
             document.getElementById("playerVsPlayer").innerHTML = "YOU WIN";
             console.log("yep the 1rd if line is running" + lobbyDataObject.Turn);
             myTurn = false;
+            let wins = await fb_readRecord("Leaderboard/" + userUID, "gtnWins")
+            wins = wins + 1;
+            await fb_update("Leaderboard/" + userUID, { "gtnWins": wins });
 
         } else if (lobbyDataObject.Guess == lobbyDataObject.Number && lobbyDataObject.player1 == lobbyDataObject.Turn) {
+            fb_listenerOff("Games/guessTheNumber/lobbies/" + lobbyID);
             document.getElementById("playerVsPlayer").innerHTML = "YOU LOSE";
             console.log("yep the 2rd if line is running" + lobbyDataObject.Turn);
+            document.getElementById("feedback").innerHTML = lobbyDataObject.playerName1 + " has guessed " + lobbyDataObject.Number + " first and WINS";
             myTurn = false;
+            let losses = await fb_readRecord("Leaderboard/" + userUID, "gtnLosses")
+            console.log(losses, " THESE ARE THE WINS ARE THEY ARE WORKING");
+            losses = losses + 1;
+            await fb_update("Leaderboard/" + userUID, { "gtnLosses": losses });
 
         } else if (lobbyDataObject.player2 == lobbyDataObject.Turn && lobbyDataObject.Guess !== lobbyDataObject.Number && lobbyDataObject.GuessedBy == lobbyDataObject.player2) {
             fb_update("Games/guessTheNumber/lobbies/" + lobbyID, { Turn: lobbyDataObject.player1 });
@@ -574,11 +595,11 @@ async function gamePlayer2(lobbyDataObject) {
         console.log("works2");
         document.getElementById("feedback").innerHTML = "The number is higher than " + lobbyDataObject.Guess;
     }
-    if (lobbyDataObject.Winner == lobbyDataObject.player2) {
-        let wins = await fb_readRecord("Leaderboard/" + userUID, gtnWins)
-        wins = wins + 1;
-        await fb_update("Leaderboard/" + userUID, { "gtnWins": wins });
-    }
+    // if (lobbyDataObject.Winner == lobbyDataObject.player2) {
+    //     let wins = await fb_readRecord("Leaderboard/" + userUID, gtnWins)
+    //     wins = wins + 1;
+    //     await fb_update("Leaderboard/" + userUID, { "gtnWins": wins });
+    // }
 }
 async function guess() {
     if (myTurn == true) {
