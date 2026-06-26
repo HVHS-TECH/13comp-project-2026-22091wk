@@ -4,7 +4,7 @@
 // Import all the constants & functions required from fb_io module
 import {
     fb_start, fb_initialise, fb_authenticate, fb_writeFarLands, fb_writeCoinGame, fb_read_sortedFL, fb_read_sortedCG, createProfile,
-    infoRegistration, fb_writeAuth, createLobby, joinLobby, checkUID, guess
+    infoRegistration, fb_writeAuth, createLobby, joinLobby, checkUID, guess, showJoin, showCreate
 }
     from './fb_io.mjs';
 
@@ -23,7 +23,8 @@ window.joinLobby = joinLobby;
 window.fb_authenticate = fb_authenticate;
 window.checkUID = checkUID;
 window.guess = guess;
-
+window.showJoin = showJoin;
+window.showCreate = showCreate;
 
 /*window.fb_onAuthStateChanged = fb_onAuthStateChanged;
 window.fb_signOut = fb_signOut;

@@ -47,11 +47,12 @@ export {
     infoRegistration, fb_writeAuth, checkUID,
 
     //Guess The Number Export
-    createLobby, joinLobby, guess
+    createLobby, joinLobby, guess, showJoin, showCreate,
 };
 function fb_start() {
     fb_initialise()
     checkUID();
+    showNecessary();
 
 }
 async function fb_initialise() {
@@ -505,7 +506,7 @@ async function gamePlayer1(lobbyDataObject) {
             console.log(wins, " THESE ARE THE WINS ARE THEY ARE WORKING");
             wins = wins + 1;
             await fb_update("Leaderboard/" + userUID, { "gtnWins": wins });
-            
+
         } else if (lobbyDataObject.Guess == lobbyDataObject.Number && lobbyDataObject.player2 == lobbyDataObject.Turn) {
             fb_listenerOff("Games/guessTheNumber/lobbies/" + lobbyID);
             document.getElementById("playerVsPlayer").innerHTML = "YOU LOSE";
@@ -617,5 +618,18 @@ async function guess() {
         document.getElementById("playerTurn").innerHTML = "it is not your turn"
     }
 }
-
-
+function showJoin() {
+    document.getElementById("joinShow").style.display = "None"
+    document.getElementById("joinSection").style.display = "block"
+}
+function showCreate() {
+    if (onceCreate == 0) {
+    document.getElementById("createLobby").style.display = "None"
+    document.getElementById("createsection").style.display = "block"
+    }
+}
+function showNecessary() {
+    document.getElementById("joinShow").style.display = "block"
+    document.getElementById("joinSection").style.display = "None"
+    document.getElementById("createsection").style.display = "None"
+}

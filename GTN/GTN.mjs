@@ -134,7 +134,6 @@ function spawnDefaultProfilePicture() {
         // profilePicture.image = defaultprofile;
         // profilePicture.image.resize(400, 400)
 
-        document.getElementById("hostWaiting").innerHTML = "Create or Join a Lobby";
         // hostGroup.add(profilePicture)
 
         // profilePicture2 = new Sprite(windowWidth / 2 + 350, windowHeight / 2 - 200, 170, 'd');

@@ -1,4 +1,4 @@
-.lobbyArea {
+/* .lobbyArea {
     background-color: antiquewhite;
     margin-left: 39vw;
     text-align: center;
@@ -9,6 +9,51 @@
     padding: 10px;
     font-style: italic;
     border-radius: 9px;
+} */
+
+.createLobby {
+    margin-top: 25vh;
+    margin-left: 15vw;
+    background-color: rgb(255, 172, 64);
+    border-color: rgb(54, 134, 240);
+    border-radius: 9px solid;
+    border-style: solid;
+    width: fit-content;
+    padding: 10px;
+    font-style: italic;
+
+}
+
+.joinShow {
+    margin-top: 25vh;
+    margin-left: 15vw;
+    background-color: rgb(255, 172, 65);
+    border-color: rgb(54, 134, 240);
+    border-radius: 9px solid;
+    border-style: solid;
+    width: fit-content;
+    padding: 10px;
+    font-style: italic;
+
+}
+
+.createsection, .joinSection {
+    margin-left: 15vw;
+    margin-top: 25vh;
+    background-color: rgb(255, 173, 67);
+    border-color: rgb(54, 134, 240);
+    border-radius: 9px solid;
+    border-style: solid;
+    width: fit-content;
+    padding: 10px;
+    font-style: italic;
+}
+
+
+
+.everything {
+    margin-left: 40vw;
+    text-align: center;
 }
 
 .gameArea {
@@ -23,14 +68,33 @@
     padding: 10px;
     font-style: italic;
 }
+
 @keyframes gradient {
-    0%{ background-position:50% 100%; }
-    20%{ background-position:0% 50%; }
-    40%{ background-position:0% 0%; }
-    60%{ background-position:50% 0%; }
-    80%{ background-position:100% 50%; }
-    100%{ background-position:50% 100%; }
+    0% {
+        background-position: 50% 100%;
+    }
+
+    20% {
+        background-position: 0% 50%;
+    }
+
+    40% {
+        background-position: 0% 0%;
+    }
+
+    60% {
+        background-position: 50% 0%;
+    }
+
+    80% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 50% 100%;
+    }
 }
+
 body {
     /* background: linear-gradient(to bottom right, rgb(101, 190, 60), rgb(54, 134, 240), red);
     background-size: 600% 600%;
@@ -38,7 +102,7 @@ body {
     background-color:rgb(250, 240, 226);
     height: 100vh;
     overflow: hidden; */
-    background-image:url("/assets/gtnBack.png");
+    background-image: url("/assets/gtnBack.png");
 }
 
 button {

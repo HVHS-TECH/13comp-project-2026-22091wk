@@ -20,10 +20,35 @@
 </head>
 
 <body onload="fb_start();setup();">
+  <section class="everything" id=everything>
 
-  <!-- Only seen when game is inactive  -->
+    
+    <section class="createLobby" id="createLobby"><button class="button1" onclick="createLobby();showCreate();">Create lobby</button>
+    </section>
 
-  <section class="lobbyArea" id="lobbyArea" style="display: block">
+    <section class="createsection"id="createsection">
+      <h2 id="waiting"> </h2>
+      <section>
+        <p1 id="hostWaiting"></p1>
+      </section>
+      <section>
+        <p1 id="displayJoinCode"></p1>
+      </section>
+    </section>
+
+
+    <section class="joinShow" id="joinShow"><button onclick="showJoin();">join lobby</button></section>
+
+    <section class="joinSection" id="joinSection">
+      <label for="joinCode">Enter the join code:</label>
+      <input type="number" id="joinCode" name="joinCode" required />
+      <button onclick="joinLobby();">join lobby</button>
+    </section>
+
+
+    <!-- Only seen when game is inactive  -->
+
+    <!-- <section class="lobbyArea" id="lobbyArea" style="display: block">
     <header class="container">
     </header>
     <button class="button1" onclick="createLobby();">Create lobby</button>
@@ -39,19 +64,19 @@
     <section>
       <p1 id="displayJoinCode"></p1>
     </section>
-  </section>
+  </section> -->
 
-  <!-- Only seen when game is active  -->
-  <section class="gameArea" id="gameArea" style="display: none;">
-    <h1 id="playerVsPlayer"></h1>
-    <h2 id="playerTurn"></h2>
-    <label for="name">Guess here</label>
-    <input type="number" id="guessInput" name="guessInput">
-    <button onclick="guess();" id="submitGuess">SUBMIT GUESS</button>
-    <h5 id="feedback">higher/lower</h3>
-  </section>
+    <!-- Only seen when game is active  -->
+    <section class="gameArea" id="gameArea" style="display: none;">
+      <h1 id="playerVsPlayer"></h1>
+      <h2 id="playerTurn"></h2>
+      <label for="name">Guess here</label>
+      <input type="number" id="guessInput" name="guessInput">
+      <button onclick="guess();" id="submitGuess">SUBMIT GUESS</button>
+      <h5 id="feedback">higher/lower</h3>
+    </section>
 
-  <!-- <section class="leaderboard" id="leaderboard" style="display: flex;">
+    <!-- <section class="leaderboard" id="leaderboard" style="display: flex;">
     <div class="winnersLeaderboard">
       <h1>Top Winners</h1>
       <p1>bragging rights! You may be a goat</p1>
@@ -76,7 +101,7 @@
     </div>
 
   </section> -->
-
+  </section>
 
   <script src="GTN.mjs"></script>
   <script type="module" src="../main.mjs"></script>
