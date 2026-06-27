@@ -14,39 +14,47 @@
 .createLobby {
     margin-top: 25vh;
     margin-left: 15vw;
-    background-color: rgb(255, 172, 64);
+    background-color: rgb(180, 99, 33);
     border-color: rgb(54, 134, 240);
     border-radius: 9px solid;
     border-style: solid;
     width: fit-content;
     padding: 10px;
     font-style: italic;
+    font-size: 100px;
 
 }
 
 .joinShow {
     margin-top: 25vh;
     margin-left: 15vw;
-    background-color: rgb(255, 172, 65);
+    background-color: rgb(180, 99, 33);
     border-color: rgb(54, 134, 240);
     border-radius: 9px solid;
     border-style: solid;
     width: fit-content;
     padding: 10px;
     font-style: italic;
+    font-size: 100px;
 
 }
 
-.createsection, .joinSection {
+#createSection, .joinSection {
     margin-left: 15vw;
     margin-top: 25vh;
-    background-color: rgb(255, 173, 67);
+    background-color: rgb(180, 99, 33);
     border-color: rgb(54, 134, 240);
     border-radius: 9px solid;
     border-style: solid;
     width: fit-content;
     padding: 10px;
     font-style: italic;
+    color:white;
+    font-size: 50px;
+}
+.joinSection button {
+        background-color: rgb(56, 136, 255);
+
 }
 
 
@@ -59,9 +67,9 @@
 .gameArea {
     background-color: antiquewhite;
     border-color: rgb(54, 134, 240);
-    margin-left: 39vw;
+    margin-left: 20vw;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 10vh;
     border-radius: 9px solid;
     border-style: solid;
     width: fit-content;
@@ -103,16 +111,22 @@ body {
     height: 100vh;
     overflow: hidden; */
     background-image: url("/assets/gtnBack.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 button {
-    background-color: rgb(73, 197, 255);
+    background-color: rgb(180, 99, 33);
     border: none;
+    color: white;
 
 }
 
-button:hover {
-    background-color: rgb(51, 190, 255);
+/* button:hover {
+    background-color: rgb(192, 120, 62);
+} */
+.createLobby:hover, .joinShow:hover {
+background-color: rgb(192, 120, 62);
 }
 
 .leaderboard {
@@ -144,4 +158,13 @@ li {
     margin-top: 30px;
 
 
+}
+#leaderboardButton {
+    margin-top: 10vh;
+    margin-left: 10vw;
+    width: 10vw;
+    height: 10vh;
+}
+#leaderboardButton:hover {
+background-color: rgb(192, 120, 62);
 }

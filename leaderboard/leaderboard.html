@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Leaderboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- stylesheets *******************************************-->
+    <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="./leaderboard.css">
+
+    <!-- firebase start ****************************************-->
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <!-- firebase end ******************************************-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"
+        integrity="sha512-bzpp8klYroR6PFgL3RJ+VkvY5hJna7Zd38OA56peUDHSNQpSiN9lDQVnMYtcw7hoAVhbR6mAOdH+ymzg1o+G0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.js"
+        integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body onload="fb_start(); leaderboardRead();">
+    <a href="../index.html">
+    <button id="returnHub">Back</button>
+  </a>
+    <section class=everything>
+        <div class="leaderTitle">
+            <h3>
+                FarLands
+            </h3>
+            <h3>
+                Wins
+            </h3>
+            <h3>
+                Losses
+            </h3>
+        </div>
+        <div class="leaderboard">
+            <div class="far">
+                <ul>
+                    <li id="F#1">N/A</li>
+                    <li id="F#2">N/A</li>
+                    <li id="F#3">N/A</li>
+                    <li id="F#4">N/A</li>
+                    <li id="F#5">N/A</li>
+                </ul>
+            </div>
+            <div class="gtnWins">
+                <ul>
+                    <li id="W#1">N/A</li>
+                    <li id="W#2">N/A</li>
+                    <li id="W#3">N/A</li>
+                    <li id="W#4">N/A</li>
+                    <li id="W#5">N/A</li>
+                </ul>
+            </div>
+            <div class="gtnLosses">
+                <ul>
+                    <li id="L#1">N/A</li>
+                    <li id="L#2">N/A</li>
+                    <li id="L#3">N/A</li>
+                    <li id="L#4">N/A</li>
+                    <li id="L#5">N/A</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <script type="module" src="../main.mjs"></script>
+
+</body>

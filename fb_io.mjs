@@ -35,7 +35,7 @@ import { initializeApp }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, onValue, remove }
+import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, limitToLast, onValue, remove }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 
@@ -44,7 +44,7 @@ import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, 
 /**************************************************************/
 export {
     fb_initialise, fb_authenticate, fb_start, fb_writeFarLands, fb_writeCoinGame, fb_read_sortedFL, fb_read_sortedCG, createProfile,
-    infoRegistration, fb_writeAuth, checkUID,
+    infoRegistration, fb_writeAuth, checkUID, fb_read_sorted, leaderboardRead, showNecessary,
 
     //Guess The Number Export
     createLobby, joinLobby, guess, showJoin, showCreate,
@@ -52,11 +52,10 @@ export {
 function fb_start() {
     fb_initialise()
     checkUID();
-    showNecessary();
 
 }
 async function fb_initialise() {
-    console.log('%c fb_initialise(): ',
+    console.log('% fb_initialise(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';');
     const firebaseConfig = {
         apiKey: "AIzaSyCttBxOg7c8gFwt2lvB639v8viidWrVnYM",
@@ -168,9 +167,9 @@ function fb_writeFarLands() {
             console.log("Not signed in");
         }
     });
-    const dbReference = ref(fb_gamedb, "Games/FarLands/Users/" + userUID);
+    const dbReference = ref(fb_gamedb, "Leaderboard/" + userUID);
 
-    update(dbReference, { Score: Number(score) }).then(() => {
+    update(dbReference, { flScore: Number(score) }).then(() => {
         console.log("update successful");
 
 
@@ -388,6 +387,42 @@ async function fb_listenerOff(_path) {
     // off(dbReference);
     console.log("working off listener")
 }
+
+function fb_read_sorted(_path, _list, _sortKey) {
+    const auth = getAuth();
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            console.log("Signed in as:", user.uid);
+        } else {
+            console.log("Not signed in");
+        }
+    });
+    const dbReference = query(ref(fb_gamedb, _path), orderByChild(_sortKey), limitToLast(5));
+    get(dbReference).then((snapshot) => {
+        let scores = []
+        snapshot.forEach(function (userScoreSnapshot) {
+            console.log(userScoreSnapshot.val())
+            let fb_data = userScoreSnapshot.val();
+            if (fb_data != null) {
+                //  console.log(fb_data);
+                scores.push(fb_data);
+            } else {
+                console.log("something went wrong");
+            }
+        });
+        scores.sort((a, b) => (b[_sortKey] || 0) - (a[_sortKey] || 0));
+        console.log(scores);
+        document.getElementById(`${_list}#1`).innerHTML = "#1      " + scores[0].Name + "      Score:" + scores[0][_sortKey];
+        document.getElementById(`${_list}#2`).innerHTML = "#2      " + scores[1].Name + "      Score:" + scores[1][_sortKey];
+        document.getElementById(`${_list}#3`).innerHTML = "#3      " + scores[2].Name + "      Score:" + scores[2][_sortKey];
+        document.getElementById(`${_list}#4`).innerHTML = "#4      " + scores[3].Name + "      Score:" + scores[3][_sortKey];
+        document.getElementById(`${_list}#5`).innerHTML = "#5      " + scores[4].Name + "      Score:" + scores[4][_sortKey];
+    }).catch((error) => {
+        console.log(error);
+    });
+
+
+}
 /**************************************************************/
 // First GTN Functionstest
 /**************************************************************/
@@ -408,7 +443,6 @@ async function lobbyJoinCode() {
 }
 async function createLobby() {
     if (onceCreate == 0) {
-        onceCreate = 1;
         const userUID = sessionStorage.getItem("UID");
         const name = await fb_readRecord("details/users/" + userUID, "Name");
         console.log("this is the data ", name);
@@ -432,42 +466,41 @@ async function createLobby() {
 
 
 async function joinLobby() {
-    if (onceCreate == 0) {
-        console.log("function should be running");
-        userUID = sessionStorage.getItem("UID");
-        console.log("This is your UID " + userUID);
-        lobbyID = document.getElementById("joinCode").value
-        console.log(lobbyID)
-        const name = await fb_readRecord("details/users/" + userUID, "Name");
-        const dbReference = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + lobbyID);
-        get(dbReference).then(async (snapshot) => {
-            let fb_data = snapshot.val();
-            if (fb_data != null) {
-                let player2 = fb_data.player2
-                console.log(player2);
 
-                if (player2 == "NONE") {
-                    const path = "Games/guessTheNumber/lobbies/" + lobbyID;
-                    console.log(path)
-                    fb_update(path, { "player2": userUID, "playerName2": name });
-                    console.log("player 2 added as", name);
-                    document.getElementById("gameArea").style.display = "block"
-                    document.getElementById("lobbyArea").style.display = "none"
-                    const playerName1 = await fb_readRecord(path, "playerName1");
-                    document.getElementById("playerVsPlayer").innerHTML = name + " vs " + playerName1;
+    console.log("function should be running");
+    userUID = sessionStorage.getItem("UID");
+    console.log("This is your UID " + userUID);
+    lobbyID = document.getElementById("joinCode").value
+    console.log(lobbyID)
+    const name = await fb_readRecord("details/users/" + userUID, "Name");
+    const dbReference = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + lobbyID);
+    get(dbReference).then(async (snapshot) => {
+        let fb_data = snapshot.val();
+        if (fb_data != null) {
+            let player2 = fb_data.player2
+            console.log(player2);
 
-                    fb_listener(path, gamePlayer2);
+            if (player2 == "NONE") {
+                const path = "Games/guessTheNumber/lobbies/" + lobbyID;
+                console.log(path)
+                fb_update(path, { "player2": userUID, "playerName2": name });
+                console.log("player 2 added as", name);
+                document.getElementById("gameArea").style.display = "block"
+                const playerName1 = await fb_readRecord(path, "playerName1");
+                document.getElementById("playerVsPlayer").innerHTML = name + " vs " + playerName1;
 
-                }
+                fb_listener(path, gamePlayer2);
 
-            } else {
-                console.log("um")
             }
-        }).catch((error) => {
-            console.log("error:  " + error);
-        });
 
-    }
+        } else {
+            console.log("um")
+        }
+    }).catch((error) => {
+        console.log("error:  " + error);
+    });
+
+
 }
 async function gamePlayer1(lobbyDataObject) {
     const dbReference = ref(fb_gamedb, "Games/guessTheNumber/lobbies/" + lobbyDataObject.lobby);
@@ -479,7 +512,13 @@ async function gamePlayer1(lobbyDataObject) {
             sessionStorage.setItem("guess", "NONE");
             console.log("game started");
             document.getElementById("gameArea").style.display = "block";
-            document.getElementById("lobbyArea").style.display = "none";
+            document.getElementById("joinShow").style.display = "none"
+            document.getElementById("createLobby").style.display = "none"
+            document.getElementById("createSection").style.display = "none"
+            document.getElementById("leaderboardButton").style.display = "none"
+
+            console.log("NONONEONOENOEN")
+
             console.log(lobbyDataObject.playerName1, lobbyDataObject.playerName2);
             document.getElementById("playerVsPlayer").innerHTML = lobbyDataObject.playerName1 + " vs " + lobbyDataObject.playerName2;
 
@@ -546,6 +585,9 @@ async function gamePlayer2(lobbyDataObject) {
         await update(dbReference, { Turn: lobbyDataObject.player1, }).then(async () => {
             console.log("game started");
             document.getElementById("gameArea").style.display = "block"
+            document.getElementById("createLobby").style.display = "none"
+            document.getElementById("joinSection").style.display = "none"
+            document.getElementById("leaderboardButton").style.display = "none"
             console.log(lobbyDataObject.playerName1, lobbyDataObject.playerName2)
             document.getElementById("playerTurn").innerHTML = "Waiting for " + lobbyDataObject.playerName1 + " to take their turn";
 
@@ -619,17 +661,31 @@ async function guess() {
     }
 }
 function showJoin() {
-    document.getElementById("joinShow").style.display = "None"
-    document.getElementById("joinSection").style.display = "block"
+    if (onceCreate == 0) {
+        document.getElementById("joinShow").style.display = "none"
+        document.getElementById("joinSection").style.display = "block"
+        onceCreate = 1
+        console.log("WORKWORKWORKWORK2")
+
+    }
 }
 function showCreate() {
     if (onceCreate == 0) {
-    document.getElementById("createLobby").style.display = "None"
-    document.getElementById("createsection").style.display = "block"
+        document.getElementById("createLobby").style.display = "none"
+        document.getElementById("createSection").style.display = "block"
+        onceCreate = 1
+        console.log("WORKWORKWORKWORK")
     }
 }
 function showNecessary() {
+
     document.getElementById("joinShow").style.display = "block"
-    document.getElementById("joinSection").style.display = "None"
-    document.getElementById("createsection").style.display = "None"
+    document.getElementById("joinSection").style.display = "none"
+    document.getElementById("createSection").style.display = "none"
+}
+function leaderboardRead() {
+    userUID = sessionStorage.getItem("UID");
+    fb_read_sorted("Leaderboard/", "F", "flScore");
+    fb_read_sorted("Leaderboard/", "W", "gtnWins");
+    fb_read_sorted("Leaderboard/", "L", "gtnLosses");
 }

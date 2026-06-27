@@ -19,14 +19,15 @@
 -->
 </head>
 
-<body onload="fb_start();setup();">
+<body onload="fb_start();setup();showNecessary();">
   <section class="everything" id=everything>
 
-    
-    <section class="createLobby" id="createLobby"><button class="button1" onclick="createLobby();showCreate();">Create lobby</button>
+
+    <section class="createLobby" id="createLobby"><button class="button1" onclick="createLobby();showCreate();">Create
+        lobby</button>
     </section>
 
-    <section class="createsection"id="createsection">
+    <section class="createSection" id="createSection">
       <h2 id="waiting"> </h2>
       <section>
         <p1 id="hostWaiting"></p1>
@@ -37,7 +38,7 @@
     </section>
 
 
-    <section class="joinShow" id="joinShow"><button onclick="showJoin();">join lobby</button></section>
+    <section class="joinShow" id="joinShow"><button onclick="showJoin();">Join lobby</button></section>
 
     <section class="joinSection" id="joinSection">
       <label for="joinCode">Enter the join code:</label>
@@ -102,7 +103,9 @@
 
   </section> -->
   </section>
-
+  <a href="../leaderboard/leaderboard.html">
+    <button id="leaderboardButton">Leaderboard</button>
+  </a>
   <script src="GTN.mjs"></script>
   <script type="module" src="../main.mjs"></script>
 </body>
