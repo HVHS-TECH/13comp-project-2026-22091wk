@@ -110,7 +110,7 @@ body {
     background-color:rgb(250, 240, 226);
     height: 100vh;
     overflow: hidden; */
-    background-image: url("/assets/gtnBack.png");
+    background-image: url("../assets/gtnBack.png");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -123,7 +123,7 @@ button {
 }
 
 /* button:hover {
-    background-color: rgb(192, 120, 62);
+    background-color: rgb(192    120, 62);
 } */
 .createLobby:hover, .joinShow:hover {
 background-color: rgb(192, 120, 62);
