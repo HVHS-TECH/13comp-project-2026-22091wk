@@ -1,0 +1,76 @@
+body { 
+    background-image: url(../assets/leaderboardBack.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif; 
+    display: flex; flex-direction: column;  
+    justify-content: flex-start;  
+    align-items: center; 
+    min-height: 100vh; 
+} 
+
+ .container { 
+    display: flex; 
+    gap: 20px; 
+} 
+
+.leaderTitle { 
+    display: flex; 
+    flex-direction: row; 
+    gap: 400px; 
+    margin-top: 50px; 
+    margin-left: 15vw;
+    color:rgb(0, 0, 0)
+} 
+
+.leaderboard { 
+    display: flex; 
+    flex-direction: row; 
+    width: fit-content; 
+    margin: 200px; 
+    gap: 0px; 
+    align-items: center; 
+} 
+.everything {
+    margin-top: 10vh;
+    border-radius: 9px;
+    background-color: antiquewhite;
+    width: fit-content;
+}
+ul { 
+    width: 400px; 
+} 
+
+li { 
+    padding: 10px 20px; 
+     margin-right: 900px;  
+     font-size: 16px; 
+    cursor: pointer; 
+    border: none; 
+    border-radius: 5px; 
+    color: #000000; 
+    transition: background-color 0.3s; 
+    width: 400px; 
+    text-align: center; 
+    list-style-type: none; 
+    font-style: italic; 
+}  
+
+ .gtnWins { 
+    margin-left: 75px; 
+} 
+.gtnLosses { 
+    margin-left: 50px; 
+} 
+
+#returnHub { 
+    background-color: rgb(180, 99, 33);
+    width: fit-content;
+    height: fit-content;
+    font-size: 25px;
+    color: white;
+    margin-top: 10px;
+}
+#returnHub:hover{ 
+    background-color: rgb(192, 120, 62);
+} 

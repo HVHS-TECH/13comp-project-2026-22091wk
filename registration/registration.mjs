@@ -1,6 +1,6 @@
 
 let name;
-let age;
+let age=0;
 console.log("%cregistration.mjs running", "color: blue;")
 var UID;
 function saveInfo() {
@@ -14,18 +14,24 @@ function saveInfo() {
 function redirectHub() {
     UID = sessionStorage.getItem("UID");
     console.log("%cIt works", "color: blue;");
+    if(age<5 || age >100) {
+        
+            alert("Please Enter A Valid Age")
+        }
+    if(name == undefined|| name == null || name.length>20 || name.trim() == "") {
+            alert("Please Enter A Valid Name")
+        }
 
-    if (UID !== 'undefined' && UID !== null ) {
-        if(age>=5 && age <=100 && name !=='undefined' && name !== null) {
+    if (UID !== null ) {
+        if(age>=5 && age <=100 && name !==undefined && name !== null && name.trim() !== "") {
             console.log("LETSSS GOOOO")
             setTimeout(() => { //https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout
             window.location.replace("../index.html");
         }, 1000);
-        } else {
-            alert("Please Enter A Valid Age & Name")
         }
+        
     } else {
-        document.getElementById("statusMessage2").innerH ;   TML = "You Are Not Logged In With Google!";
+        document.getElementById("statusMessage2").innerHTML = "You Are Not Logged In With Google!";
 
     }
 

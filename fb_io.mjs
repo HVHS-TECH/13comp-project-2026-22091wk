@@ -43,7 +43,7 @@ import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, 
 // Exporting functions to be used in main.mjs
 /**************************************************************/
 export {
-    fb_initialise, fb_authenticate, fb_start, fb_writeFarLands, fb_writeCoinGame, fb_read_sortedFL, fb_read_sortedCG, createProfile,
+    fb_initialise, fb_authenticate, fb_start, fb_writeFarLands, createProfile,
     infoRegistration, fb_writeAuth, checkUID, fb_read_sorted, leaderboardRead, showNecessary,
 
     //Guess The Number Export
@@ -298,7 +298,7 @@ function createProfile() {
     const name = sessionStorage.getItem("name")
     const dbReference = ref(fb_gamedb, "Leaderboard/" + userUID);
 
-    update(dbReference, { Name: name, flScore: 0, cgScore: 0, gtnWins: 0, gtnLosses: 0 }).then(() => {
+    update(dbReference, { Name: name, flScore: 0, gtnWins: 0, gtnLosses: 0 }).then(() => {
         console.log("update successful");
 
 
@@ -324,21 +324,6 @@ function infoRegistration() {
     });
 }
 
-function createProfileCG() {
-    const name = sessionStorage.getItem("name")
-    const dbReference = ref(fb_gamedb, "Games/CoinGame/Users/" + userUID);
-
-    update(dbReference, { Name: name }).then(() => {
-        console.log("update successful");
-
-
-    }).catch((error) => {
-        console.log("error  " + error)
-    });
-
-
-
-}
 function fb_listener(_path, _function) {
     const dbReference = ref(fb_gamedb, _path);
     function andThen(snapshot) {
