@@ -65,7 +65,7 @@ function redirectHub() {
             name !== null &&
             name.trim() !== "" &&
             name.length <= 20 &&
-            name.length >= 5 &&
+            name.length >= 3 &&
             gender !== "" &&
             dateOfBirth !== "" &&
             phoneNumber.length == 10 &&
