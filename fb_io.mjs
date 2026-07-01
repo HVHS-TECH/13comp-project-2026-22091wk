@@ -33,7 +33,7 @@ function preload() {
 //    from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { initializeApp }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup }
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { getDatabase, ref, set, get, update, query, orderByChild, limitToFirst, limitToLast, onValue, remove }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
@@ -52,6 +52,7 @@ export {
 function fb_start() {
     fb_initialise()
     checkUID();
+    fb_onAuthStateChanged();
 
 }
 async function fb_initialise() {
@@ -124,7 +125,6 @@ function fb_writeAuth() {
     auth.onAuthStateChanged(user => {
         if (user) {
             console.log("Signed in as:", user.uid);
-
         } else {
             console.log("Not signed in");
         }
@@ -151,6 +151,21 @@ function fb_writeAuth() {
     //document.getElementById("p_fbWriteRec").innerHTML = "Successful";
 
     //    });
+}
+function fb_onAuthStateChanged() {
+    const AUTH = getAuth();
+    onAuthStateChanged(AUTH, (user) => {
+        if (user) {
+            userUID = user.uid;
+            console.log("onauthstatechanged is working ", userUID);
+        } else {
+            window.location.replace("../registration/registration.html");
+            console.log("hm now you've got a problem");
+        }
+
+    }, (error) => {
+        document.getElementById("p_fbAuthenticate").innerHTML = error;
+    });
 }
 function fb_writeFarLands() {
     let score;

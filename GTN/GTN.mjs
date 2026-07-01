@@ -47,22 +47,7 @@ let onceCreate = 0;
 
 
 /*******************************************************/
-function setup() {
-    console.log("setup: ");
-    spawnDefaultProfilePicture();
-    if (gameState == "intro") {
-        UID = sessionStorage.getItem("UID");
-        userName = sessionStorage.getItem("userName");
 
-        // if (UID == null) {
-        //     window.location.replace("../registration/registration.html");
-        // }
-    }
-    else if (gameState == "play") {
-    }
-    else if (gameState == "lose") {
-    }
-}
 
 /*******************************************************/
 // draw()
