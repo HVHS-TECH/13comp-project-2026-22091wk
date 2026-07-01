@@ -7,7 +7,7 @@ import {
     infoRegistration, fb_writeAuth, createLobby, joinLobby, checkUID, guess, showJoin, showCreate, fb_read_sorted, leaderboardRead, showNecessary
 }
     from './fb_io.mjs';
-
+console.log("main.mjs has loaded");
 window.fb_start = fb_start;
 window.fb_initialise = fb_initialise;
 window.fb_writeFarLands = fb_writeFarLands;
