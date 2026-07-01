@@ -8,7 +8,7 @@
   <!-- stylesheets *******************************************-->
   <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" type="text/css" href="./style.css">
-
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <!-- firebase start ****************************************-->
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
   <!-- firebase end ******************************************-->
@@ -24,32 +24,33 @@
 
 <body onload="fb_start();">
 
-  <header class="container">
-    <h1>13COMP Firebase Realtime Database</h1>
+  <header class="title">
+    <h1>Game Selector</h1>
   </header>
 
 
 
 
-  <section class="gtn">
-    <a href="./GTN/GTN.html">
-      <button onclick>Guess The Number</button>
-    </a>
-  </section>
-
-
-  <section class="fLands">
-    <a href=" farLands/farLands.html">
-      <button onclick>Far Lands</button>
-    </a>
-  </section>
 
 
 
-  </section>
-  <section>
+  <div class="games">
+    <section id="gtn">
+      <a href="./GTN/GTN.html">
+        <button onclick>Guess The Number</button>
+      </a>
+    </section>
 
-  </section>
+
+    <section id="fLands">
+      <a href=" farLands/farLands.html">
+        <button onclick>Far Lands</button>
+      </a>
+    </section>
+  </div>
+
+
+
   <script type="module" src="/main.mjs"></script>
 
 </body>

@@ -58,7 +58,7 @@ function redirectHub() {
         alert("Please Select Your Favourite Within The 7 Wonders Of The World")
     }
 
-    if (UID !== undefined) {
+    if (UID !== null) {
         if (age >= 5 &&
             age <= 100 &&
             name !== undefined &&
@@ -68,7 +68,7 @@ function redirectHub() {
             name.length >= 5 &&
             gender !== "" &&
             dateOfBirth !== "" &&
-            phoneNumber.length == 11 &&
+            phoneNumber.length == 10 &&
             address.trim() !== "" &&
             wonder !== ""
 

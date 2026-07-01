@@ -12,7 +12,7 @@
 } */
 
 .createLobby {
-    margin-top: 25vh;
+    margin-top: 20vh;
     margin-left: 15vw;
     background-color: rgb(180, 99, 33);
     border-color: rgb(54, 134, 240);
@@ -21,7 +21,7 @@
     width: fit-content;
     padding: 10px;
     font-style: italic;
-    font-size: 100px;
+    font-size: 60px;
 
 }
 
@@ -35,7 +35,7 @@
     width: fit-content;
     padding: 10px;
     font-style: italic;
-    font-size: 100px;
+    font-size: 60px;
 
 }
 
@@ -113,6 +113,7 @@ body {
     background-image: url("../assets/gtnBack.png");
     background-repeat: no-repeat;
     background-size: cover;
+    font-family:'Times New Roman', Times, serif;
 }
 
 button {
