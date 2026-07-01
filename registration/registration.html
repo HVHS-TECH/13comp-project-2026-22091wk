@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,39 +17,71 @@
     integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-   
+
 </head>
-<body onload ="fb_initialise();">
- 
-  <div class="container">
+
+<body onload="fb_initialise();">
+
+  <section id="googleAuth">
+    <button id="googleButton" onclick="fb_authenticate();">Login with Google</button>
+  </section>
+
+  <section id="container" class="container">
     <h1>Registration Form for <br> Guess The Number and FarLands</h1>
     <h2>(Logging in with google is also a part of registration)</h2>
 
-    <button onclick="fb_authenticate();">Login with Google</button>
-
-
-    <form id="RegistationForm">
+    <form id="RegistrationForm">
       <label for="name">UserName: more than 5 and less than 20 characters</label>
       <input type="text" id="name" name="name" required />
 
       <label for="age">Age 5-100:</label>
       <input type="number" id="age" name="age" required />
+
+      <label for="gender">Gender</label>
+      <select name="gender" id="gender" required>
+        <option value="" selected disabled>Select a gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for ="dateOfBirth">Date Of Birth:</label>
+      <input type="date" id="dateOfBirth" min="1926-01-01" max="2020-12-31" required>
+
+      <label for="phoneNumber">Phone Number: eg. 021 xxx xxxxx 022 xxx xxxxx</label>
+      <input type="number" id="phoneNumber" name="phoneNumber" required />
+
+      <label for="address">Address: trust the process</label>
+      <input type="text" id="address" name="address" required />
+
+      <label for="wonder">Favourite Wonder Of The World: </label>
+      <select name="wonder" id="wonder" required>
+        <option value="" selected disabled>Select your favourite Wonder</option>
+        <option value="greatWallOfChina">Great Wall of China, China</option>
+        <option value="christTheRedeemer">Christ The Redeemer, Brazil</option>
+        <option value="chichenItza">Chichen Itza, Mexico</option>
+        <option value="machuPicchu">Machu Picchu, Peru</option>
+        <option value="petra">Petra, Jordan</option>
+        <option value="tajMahal">Taj Mahal, India</option>
+        <option value="theColosseum">The Colosseum, Italy</option>
+      </select>
     </form>
 
-    
+
 
     <button onclick="saveInfo();createProfile();infoRegistration();redirectHub(); ">Submit</button>
 
     <div id="emailOutput" style="margin-top: 2rem;"></div>
 
     <p id="statusMessage">You must be logged in to proceed!</p>
-    <p id ="statusMessage2"></p>
+    <p id="statusMessage2"></p>
   </div>
-  
- <!--MJS FILES-->
+
+  <!--MJS FILES-->
   <script type="module" src="../main.mjs"></script>
   <script src="./registration.mjs"></script>
 
 
 </body>
+
 </html>

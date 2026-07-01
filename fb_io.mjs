@@ -133,6 +133,8 @@ function fb_writeAuth() {
 
     update(dbReference, { UID: userUID, userDisplayName: userDisplayName, userProfilePicture: userProfilePicture }).then(() => {
         console.log("update very successful");
+            document.getElementById("googleAuth").style.display = "none"
+            document.getElementById("container").style.display = "block"
 
 
     }).catch((error) => {
@@ -157,7 +159,7 @@ function fb_onAuthStateChanged() {
     onAuthStateChanged(AUTH, (user) => {
         if (user) {
             userUID = user.uid;
-            console.log("onauthstatechanged is working ", userUID);
+            console.log("onauthstatechanged is working: ", userUID);
         } else {
             window.location.replace("../registration/registration.html");
             console.log("hm now you've got a problem");
@@ -326,11 +328,15 @@ function createProfile() {
 }
 function infoRegistration() {
     const dbReference = ref(fb_gamedb, "details/users/" + userUID);
-    let age = sessionStorage.getItem("age")
+    const age = sessionStorage.getItem("age")
     const name = sessionStorage.getItem("name")
+    const gender = sessionStorage.getItem("gender");
+    const dateOfBirth = sessionStorage.getItem("dateOfBirth");
+    const phoneNumber = sessionStorage.getItem("phoneNumber");
+    const address = sessionStorage.getItem("address");
+    const wonder = sessionStorage.getItem("wonder");
 
-
-    update(dbReference, { Age: Number(age), Name: name }).then(() => {
+    update(dbReference, { Age: Number(age), Name: name, gender: gender, dateOfBirth: dateOfBirth, phoneNumber: phoneNumber, address: address, wonder:wonder }).then(() => {
         console.log("update successful2");
 
 
@@ -443,7 +449,7 @@ async function lobbyJoinCode() {
 }
 async function createLobby() {
     if (onceCreate == 0) {
-        const userUID = sessionStorage.getItem("UID");
+        userUID = sessionStorage.getItem("UID");
         const name = await fb_readRecord("details/users/" + userUID, "Name");
         console.log("this is the data ", name);
         sessionStorage.setItem(onceCreate, onceCreate)
