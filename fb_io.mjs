@@ -162,7 +162,7 @@ function fb_onAuthStateChanged() {
             console.log("onauthstatechanged is working: ", userUID);
         } else {
             const BASE = "/13comp-project-2026-22091wk";
-            window.location.replace('${BASE}/registration/registration.html');
+            window.location.replace(`${BASE}/registration/registration.html`);
             console.log("hm now you've got a problem");
         }
 
