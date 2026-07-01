@@ -78,7 +78,7 @@ async function fb_initialise() {
 function checkUID() {
     userUID = sessionStorage.getItem("UID");
     if (userUID == null) {
-        window.location.replace("../registration/registration.html");
+        window.location.replace("./registration/registration.html");
 
     }
 }
@@ -161,8 +161,7 @@ function fb_onAuthStateChanged() {
             userUID = user.uid;
             console.log("onauthstatechanged is working: ", userUID);
         } else {
-            const BASE = "/13comp-project-2026-22091wk";
-            window.location.replace(`${BASE}/registration/registration.html`);
+            window.location.replace("/registration/registration.html");
             console.log("hm now you've got a problem");
         }
 
