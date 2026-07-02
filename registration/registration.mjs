@@ -31,7 +31,7 @@ function redirectHub() {
     UID = sessionStorage.getItem("UID");
     console.log("%cIt works", "color: blue;");
     
-    if (name == undefined || name == null || name.length > 20 || name.trim() == "") {
+    if (name == undefined || name == null || name.length > 20 || name.length < 3 || name.trim() == "") {
         alert("Please Enter A Valid Name")
         return;
     }
