@@ -335,7 +335,7 @@ function infoRegistration() {
     const phoneNumber = sessionStorage.getItem("phoneNumber");
     const address = sessionStorage.getItem("address");
     const wonder = sessionStorage.getItem("wonder");
-    console.log({Name, Age, address, gender, phoneNumber, wonder});
+    console.log({age, name, gender, genpastader, phoneNumber, address, wonder});
 
     update(dbReference, { Age: Number(age), Name: name, gender: gender, pasta: pasta, phoneNumber: phoneNumber, address: address, wonder:wonder }).then(() => {
         console.log("update successful2");
