@@ -105,7 +105,7 @@ async function fb_authenticate() {
 
         const dbReference = ref(fb_gamedb, path);
         get(dbReference).then((snapshot) => {
-            if (snapshot.Name.exists()) {
+            if (snapshot.exists()) {
                 window.location.replace("../index.html");
                 console.log("u already created an account")
             } else {
