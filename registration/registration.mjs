@@ -50,7 +50,7 @@ function redirectHub() {
         alert("Please Enter A Date Of Birth")
         return;
     }
-    if (phoneNumber.length != 11 && phoneNumber.length != 10) {
+    if (phoneNumber.length != 11 && phoneNumber.length != 10 && phoneNumber.length != 9 && phoneNumber.length != 8) {
 
         alert("Please Enter A Valid Phone Number")
         return;

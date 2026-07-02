@@ -159,7 +159,7 @@ function fb_onAuthStateChanged() {
     onAuthStateChanged(AUTH, (user) => {
         console.log("fb_onAuthStateChanged is running");
         if (!user) {
-            window.location.replace("registration/registration.html");
+            window.location.replace("./registration/registration.html");
             console.log("hm now you've got a problem");
             return;
         }
