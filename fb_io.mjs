@@ -76,11 +76,20 @@
 
     }
     function checkUID() {
-        userUID = sessionStorage.getItem("UID");
-        if (userUID == null) {
-            window.location.replace("./registration/registration.html");
-
-        }
+        const path = "details/users/" + userUID;
+            const dbReference = ref(fb_gamedb, path);
+            get(dbReference).then((snapshot) => {
+                if (snapshot.child("Name").exists()) {
+                    window.location.replace("../index.html");
+                    console.log("u already created an account")
+                } else {
+                    console.log("go sign up buddy")
+                    fb_writeAuth();
+                }
+            }).catch((error) => {
+            console.log("error authenticating: " + error);
+            // document.getElementById("p_fbAuthenticate").innerHTML = "Failled Authenticating";
+        })
     }
     async function fb_authenticate() {
         const AUTH = getAuth();
@@ -105,7 +114,7 @@
 
             const dbReference = ref(fb_gamedb, path);
             get(dbReference).then((snapshot) => {
-                if (snapshot.exists()) {
+                if (snapshot.child("Name").exists()) {
                     window.location.replace("../index.html");
                     console.log("u already created an account")
                 } else {
