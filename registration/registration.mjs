@@ -2,7 +2,7 @@
 let name;
 let age;
 let gender;
-let dateOfBirth;
+let pasta;
 let phoneNumber;
 let address;
 let wonder;
@@ -25,7 +25,7 @@ function saveInfo() {
     sessionStorage.setItem("address", address);
     sessionStorage.setItem("wonder", wonder);
     console.log("%cIt works", "color: blue;")
-    
+
 }
 function redirectHub() {
     UID = sessionStorage.getItem("UID");
@@ -50,7 +50,7 @@ function redirectHub() {
         return;
     }
     if (phoneNumber.length != 11 && phoneNumber.length != 10) {
-        
+
         alert("Please Enter A Valid Phone Number")
         return;
     }
@@ -66,24 +66,12 @@ function redirectHub() {
     }
 
     if (UID !== null) {
-        if (age >= 5 &&
-            age <= 100 &&
-            name !== undefined &&
-            name !== null &&
-            name.trim() !== "" &&
-            name.length <= 20 &&
-            name.length >= 3 &&
-            gender !== "" &&
-            dateOfBirth !== "" &&
-            phoneNumber.length == 10 &&
-            address.trim() !== "" &&
-            wonder !== ""
-        ) {
-            console.log("LETSSS GOOOO")
-            setTimeout(() => { //https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout
-                window.location.replace("../index.html");
-            }, 1000);
-        }
+
+        console.log("LETSSS GOOOO")
+        setTimeout(() => { //https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout
+            window.location.replace("../index.html");
+        }, 1000);
+
 
     } else {
         document.getElementById("statusMessage2").innerHTML = "You Are Not Logged In With Google!";
