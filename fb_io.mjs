@@ -331,12 +331,12 @@ function infoRegistration() {
     const age = sessionStorage.getItem("age")
     const name = sessionStorage.getItem("name")
     const gender = sessionStorage.getItem("gender");
-    const dateOfBirth = sessionStorage.getItem("dateOfBirth");
+    const pasta = sessionStorage.getItem("pasta");
     const phoneNumber = sessionStorage.getItem("phoneNumber");
     const address = sessionStorage.getItem("address");
     const wonder = sessionStorage.getItem("wonder");
 
-    update(dbReference, { Age: Number(age), Name: name, gender: gender, dateOfBirth: dateOfBirth, phoneNumber: phoneNumber, address: address, wonder:wonder }).then(() => {
+    update(dbReference, { Age: Number(age), Name: name, gender: gender, pasta: pasta, phoneNumber: phoneNumber, address: address, wonder:wonder }).then(() => {
         console.log("update successful2");
 
 

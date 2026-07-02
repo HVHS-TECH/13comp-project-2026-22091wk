@@ -12,7 +12,7 @@ function saveInfo() {
     name = document.getElementById("name").value;
     age = Number(document.getElementById("age").value);
     gender = document.getElementById("gender").value;
-    dateOfBirth = document.getElementById("dateOfBirth").value;
+    pasta = document.getElementById("pasta").value;
     phoneNumber = document.getElementById("phoneNumber").value;
     address = document.getElementById("address").value;
     wonder = document.getElementById("wonder").value;
@@ -20,7 +20,7 @@ function saveInfo() {
     sessionStorage.setItem("name", name);
     sessionStorage.setItem("age", age);
     sessionStorage.setItem("gender", gender);
-    sessionStorage.setItem("dateOfBirth", dateOfBirth);
+    sessionStorage.setItem("pasta", pasta);
     sessionStorage.setItem("phoneNumber", phoneNumber);
     sessionStorage.setItem("address", address);
     sessionStorage.setItem("wonder", wonder);
@@ -41,7 +41,7 @@ function redirectHub() {
 
         alert("Please select a gender")
     }
-    if (dateOfBirth == "") {
+    if (pasta == "") {
 
         alert("Please Enter A Date Of Birth")
     }
@@ -67,7 +67,7 @@ function redirectHub() {
             name.length <= 20 &&
             name.length >= 3 &&
             gender !== "" &&
-            dateOfBirth !== "" &&
+            pasta !== "" &&
             phoneNumber.length == 10 &&
             address.trim() !== "" &&
             wonder !== ""
