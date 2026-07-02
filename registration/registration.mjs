@@ -30,13 +30,14 @@ function saveInfo() {
 function redirectHub() {
     UID = sessionStorage.getItem("UID");
     console.log("%cIt works", "color: blue;");
+    
+    if (name == undefined || name == null || name.length > 20 || name.trim() == "") {
+        alert("Please Enter A Valid Name")
+        return;
+    }
     if (age < 5 || age > 100) {
 
         alert("Please Enter A Valid Age")
-        return;
-    }
-    if (name == undefined || name == null || name.length > 20 || name.trim() == "") {
-        alert("Please Enter A Valid Name")
         return;
     }
     if (gender == "") {
