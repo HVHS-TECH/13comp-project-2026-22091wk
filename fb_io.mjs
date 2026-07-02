@@ -485,7 +485,7 @@ async function joinLobby() {
         if (fb_data != null) {
             let player2 = fb_data.player2
             console.log(player2);
-            console.log(name);
+            console.log("This is your name test", name);
 
             if (player2 == "NONE") {
                 const path = "Games/guessTheNumber/lobbies/" + lobbyID;
