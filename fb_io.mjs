@@ -502,7 +502,10 @@ async function joinLobby() {
             }
 
         } else {
-            console.log("um")
+            console.log("ummmmmm");
+            console.log("ummmmmm");
+            console.log("ummmmmm");
+            console.log("ummmmmm");
         }
     }).catch((error) => {
         console.log("error:  " + error);
