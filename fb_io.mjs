@@ -105,7 +105,7 @@ async function fb_authenticate() {
 
         const dbReference = ref(fb_gamedb, path);
         get(dbReference).then((snapshot) => {
-            if (snapshot.exists()) {
+            if (snapshot.Name.exists()) {
                 window.location.replace("../index.html");
                 console.log("u already created an account")
             } else {
@@ -335,6 +335,7 @@ function infoRegistration() {
     const phoneNumber = sessionStorage.getItem("phoneNumber");
     const address = sessionStorage.getItem("address");
     const wonder = sessionStorage.getItem("wonder");
+    console.log({Name, Age, address, gender, phoneNumber, wonder});
 
     update(dbReference, { Age: Number(age), Name: name, gender: gender, pasta: pasta, phoneNumber: phoneNumber, address: address, wonder:wonder }).then(() => {
         console.log("update successful2");
