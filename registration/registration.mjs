@@ -47,7 +47,7 @@ function redirectHub() {
     }
     if (pasta == "") {
 
-        alert("Please Enter A Date Of Birth")
+        alert("Please Enter A pasta")
         return;
     }
     if (phoneNumber.length != 11 && phoneNumber.length != 10 && phoneNumber.length != 9 && phoneNumber.length != 8) {
