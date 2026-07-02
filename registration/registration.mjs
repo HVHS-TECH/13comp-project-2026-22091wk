@@ -33,29 +33,36 @@ function redirectHub() {
     if (age < 5 || age > 100) {
 
         alert("Please Enter A Valid Age")
+        return;
     }
     if (name == undefined || name == null || name.length > 20 || name.trim() == "") {
         alert("Please Enter A Valid Name")
+        return;
     }
     if (gender == "") {
 
         alert("Please select a gender")
+        return;
     }
     if (pasta == "") {
 
         alert("Please Enter A Date Of Birth")
+        return;
     }
-    if (phoneNumber.length !== 11) {
-
+    if (phoneNumber.length != 11 && phoneNumber.length != 10) {
+        
         alert("Please Enter A Valid Phone Number")
+        return;
     }
     if (address.trim() == "") {
 
         alert("Please Enter A address")
+        return;
     }
     if (wonder == "") {
 
         alert("Please Select Your Favourite Within The 7 Wonders Of The World")
+        return;
     }
 
     if (UID !== null) {
@@ -67,13 +74,10 @@ function redirectHub() {
             name.length <= 20 &&
             name.length >= 3 &&
             gender !== "" &&
-            pasta !== "" &&
+            dateOfBirth !== "" &&
             phoneNumber.length == 10 &&
             address.trim() !== "" &&
             wonder !== ""
-
-
-
         ) {
             console.log("LETSSS GOOOO")
             setTimeout(() => { //https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout
