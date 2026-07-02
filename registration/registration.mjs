@@ -49,7 +49,7 @@ function redirectHub() {
         alert("Please Enter A Date Of Birth")
         return;
     }
-    if (phoneNumber.length !== 11 || phoneNumber.length !== 10) {
+    if (phoneNumber.length != 11 && phoneNumber.length != 10) {
         
         alert("Please Enter A Valid Phone Number")
         return;
